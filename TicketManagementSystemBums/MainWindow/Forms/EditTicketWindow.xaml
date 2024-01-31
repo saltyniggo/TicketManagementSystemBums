@@ -1,0 +1,108 @@
+﻿<Window x:Class="TicketManagementSystemBums.MainWindow.Forms.EditTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicketManagementSystemBums.MainWindow.Forms"
+        mc:Ignorable="d"
+        Title="EditTicketWindow" Height="350" Width="600"
+        WindowStyle="None"
+        AllowsTransparency="true"
+        MouseDown="Window_MouseDown">
+
+    <Window.FontFamily>
+        <FontFamily>Montserrat</FontFamily>
+    </Window.FontFamily>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="3" 
+               Content="Edit Ticket"
+               HorizontalAlignment="Center"
+               FontSize="32"
+               VerticalAlignment="Center"/>
+        <Label Grid.Row="1" 
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Content="Title:"/>
+        <TextBox Grid.Row="1" 
+                 Grid.Column="1"
+                 x:Name="txtName"
+                 Margin="10"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 TextWrapping="Wrap"/>
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Content="Date:"/>
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 x:Name="txtDate"
+                 Margin="10"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 TextWrapping="Wrap"/>
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Content="Priority:"/>
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 x:Name="txtPriority"
+                 Margin="10"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 TextWrapping="Wrap"/>
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Content="Assigned to:"/>
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 x:Name="txtAssignedUser"
+                 Margin="10"
+                 FontSize="14"
+                 VerticalContentAlignment="Center"
+                 TextWrapping="Wrap"/>
+        <Label Grid.Row="1"
+               Grid.Column="2"
+               VerticalAlignment="Center"
+               FontSize="16"
+               Content="Description:"/>
+        <TextBox Grid.Row="2"
+                 Grid.Column="2"
+                 Grid.RowSpan="3"
+                 x:Name="txtDescription"
+                 Margin="10"
+                 FontSize="14"
+                 TextWrapping="Wrap"/>
+        <Button Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Width="100"
+                Height="50"
+                VerticalContentAlignment="Center"
+                Content="Submit" 
+                FontSize="18"
+                Click="SubmitTicket"/>
+    </Grid>
+</Window>
+

@@ -12,6 +12,9 @@
     <Window.FontFamily>
         <FontFamily>Montserrat</FontFamily>
     </Window.FontFamily>
+    <Window.WindowStartupLocation>
+        <WindowStartupLocation>CenterScreen</WindowStartupLocation>
+    </Window.WindowStartupLocation>
     <Border>
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

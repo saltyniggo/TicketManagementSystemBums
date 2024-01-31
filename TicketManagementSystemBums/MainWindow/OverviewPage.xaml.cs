@@ -21,39 +21,7 @@ namespace TicketManagementSystemBums.MainWindow
     /// </summary>
     public partial class OverviewPage : Page
     {
-        public void FillLists()
-        {
-            Random random = new Random();
-
-            for (int i = 0; i < 69; i++)
-            {
-                string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
-                    .Select(s => s[random.Next(s.Length)]).ToArray());
-
-                listUnassigned.Items.Add(randomString);
-                listAssigned.Items.Add(randomString);
-                listCompleted.Items.Add(randomString);
-            }
-
-            List<string> unassignedItems = new List<string>();
-            List<string> assignedItems = new List<string>();   
-            List<string> completedItems = new List<string>();
-
-            foreach (var item in unassignedItems)
-            {
-                listUnassigned.Items.Add(item);
-            }
-
-            foreach (var item in assignedItems)
-            {
-                listAssigned.Items.Add(item);
-            }
-
-            foreach (var item in completedItems)
-            {
-                listCompleted.Items.Add(item);
-            }
-        }
+        private EditTicketWindow currentEditTicketWindow;
 
         public OverviewPage()
         {
@@ -65,5 +33,41 @@ namespace TicketManagementSystemBums.MainWindow
         {
             new AddTicketWindow().Show();
         }
+
+        public void FillLists()
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < 7; i++)
+            {
+                string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
+                    .Select(s => s[random.Next(s.Length)]).ToArray());
+
+                Ticket ticket = new Ticket
+                {
+                    Name = randomString,
+                    Date = DateTime.Now.AddDays(random.Next(-10, 10)),
+                    Priority = random.Next(1, 5),
+                    AssignedUser = "User" + random.Next(1, 5),
+                    Description = "Description" + random.Next(1, 100)
+                };
+
+                listUnassigned.Items.Add(ticket);
+                listAssigned.Items.Add(ticket);
+                listCompleted.Items.Add(ticket);
+            }
+        }
+        private void Ticket_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Ticket item = (sender as FrameworkElement).DataContext as Ticket;
+            if (currentEditTicketWindow != null)
+            {
+                currentEditTicketWindow.Close();
+            }
+            currentEditTicketWindow = new EditTicketWindow(item);
+            currentEditTicketWindow.Show();
+        }
+
+
     }
 }
