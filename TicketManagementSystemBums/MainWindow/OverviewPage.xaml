@@ -1,0 +1,139 @@
+﻿<Page x:Class="TicketManagementSystemBums.MainWindow.OverviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TicketManagementSystemBums.MainWindow"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="800"
+      Title="OverviewPage"
+      Background="Transparent">
+
+    <Page.FontFamily>
+        <FontFamily>Montserrat</FontFamily>
+    </Page.FontFamily>
+    <DockPanel>
+        <Grid DockPanel.Dock="Left"
+              Background="#A663A1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Placholder Title"
+                   Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   FontSize="18"/>
+            <Label Content="Placholder Link"
+                   Grid.Row="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   FontSize="16"/>
+            <Label Content="Placholder Link"
+                   Grid.Row="2"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   FontSize="16"/>
+            <Label Content="Placholder Link"
+                   Grid.Row="3"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   FontSize="16"/>
+            <Button Content="New Button"
+                    Grid.Row="5"
+                    Width="75"
+                    Height="75"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="45"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Content="Add Ticket"
+                    Grid.Row="6"
+                    Width="75"
+                    Height="75"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    Click="OpenAddTicketForm">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="45"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <Grid DockPanel.Dock="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       HorizontalAlignment="Center"
+                       Foreground="#D9B4CF"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Content="Unassigned"/>
+                <ListBox Grid.Row="1"
+                         x:Name="listUnassigned"
+                         Background="Transparent"
+                         BorderBrush="#A663A1"
+                         Foreground="#D9B4CF">
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       HorizontalAlignment="Center"
+                       Foreground="#D9B4CF"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Content="Assigned"/>
+                <ListBox Grid.Row="1"
+                         x:Name="listAssigned"
+                         Background="Transparent"
+                         BorderBrush="#A663A1"
+                         Foreground="#D9B4CF">
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Foreground="#D9B4CF"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Content="Completed"/>
+                <ListBox Grid.Row="1"
+                         x:Name="listCompleted"
+                         Background="Transparent"
+                         BorderBrush="#A663A1"
+                         Foreground="#D9B4CF">
+                </ListBox>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Page>

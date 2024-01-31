@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TicketManagementSystemBums.View.LoginWindow
+namespace TicketManagementSystemBums.LoginWindow
 {
     /// <summary>
     /// Interaction logic for RegisterPage.xaml
@@ -23,6 +23,20 @@ namespace TicketManagementSystemBums.View.LoginWindow
         public RegisterPage()
         {
             InitializeComponent();
+        }
+
+        public RegisterPage(string email)
+        {
+            InitializeComponent();
+            txtBoxEmail.Text = email;
+        }
+
+        private void BackToLogin(object sender, RoutedEventArgs e)
+        {
+            if (txtBoxEmail.Text != "")
+                this.NavigationService.Navigate(new LoginPage(txtBoxEmail.Text));
+            else
+            this.NavigationService.Navigate(new LoginPage());
         }
     }
 }
