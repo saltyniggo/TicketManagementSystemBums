@@ -9,6 +9,7 @@ namespace TicketManagementSystemBums
 {
     public class Ticket
     {
+        public int Id { get; set; }
         public enum TicketStatus
         {
             Unassigned,
