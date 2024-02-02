@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicketManagementSystemBums.MainWindow.Forms;
+using TicketManagementSystemBums.MainWindow.Forms.DetailWindow;
+using static TicketManagementSystemBums.Ticket;
 
 namespace TicketManagementSystemBums.MainWindow
 {
@@ -21,7 +23,8 @@ namespace TicketManagementSystemBums.MainWindow
     /// </summary>
     public partial class OverviewPage : Page
     {
-        private EditTicketWindow currentEditTicketWindow;
+        private DetailWindow currentDetailWindow;
+
 
         public OverviewPage()
         {
@@ -38,7 +41,7 @@ namespace TicketManagementSystemBums.MainWindow
         {
             Random random = new Random();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 14; i++)
             {
                 string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -49,23 +52,33 @@ namespace TicketManagementSystemBums.MainWindow
                     Date = DateTime.Now.AddDays(random.Next(-10, 10)),
                     Priority = random.Next(1, 5),
                     AssignedUser = "User" + random.Next(1, 5),
-                    Description = "Description" + random.Next(1, 100)
+                    Description = "Description" + random.Next(1, 100),
+                    Status = (TicketStatus)random.Next(0, 3)
                 };
 
-                listUnassigned.Items.Add(ticket);
-                listAssigned.Items.Add(ticket);
-                listCompleted.Items.Add(ticket);
+                switch (ticket.Status)
+                {
+                    case TicketStatus.Unassigned:
+                        listUnassigned.Items.Add(ticket);
+                        break;
+                    case TicketStatus.Assigned:
+                        listAssigned.Items.Add(ticket);
+                        break;
+                    case TicketStatus.Completed:
+                        listCompleted.Items.Add(ticket);
+                        break;
+                }
             }
         }
         private void Ticket_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Ticket item = (sender as FrameworkElement).DataContext as Ticket;
-            if (currentEditTicketWindow != null)
+            if (currentDetailWindow != null)
             {
-                currentEditTicketWindow.Close();
+                currentDetailWindow.Close();
             }
-            currentEditTicketWindow = new EditTicketWindow(item);
-            currentEditTicketWindow.Show();
+            currentDetailWindow = new DetailWindow(item);
+            currentDetailWindow.Show();
         }
 
 

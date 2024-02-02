@@ -10,22 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TicketManagementSystemBums.LoginWindow;
 
-namespace TicketManagementSystemBums.MainWindow.Forms
+namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 {
     /// <summary>
-    /// Interaction logic for EditTicketWindow.xaml
+    /// Interaction logic for DetailTicketPage.xaml
     /// </summary>
-    public partial class EditTicketWindow : Window
+    public partial class DetailTicketPage : Page
     {
-        public EditTicketWindow()
+        private Ticket ticket;
+
+        public DetailTicketPage()
         {
             InitializeComponent();
         }
 
-        public EditTicketWindow(Ticket ticket)
+        public DetailTicketPage(Ticket ticket)
         {
+            this.ticket = ticket;
             InitializeComponent();
             txtName.Text = ticket.Name;
             txtDate.Text = ticket.Date.ToString();
@@ -34,18 +39,9 @@ namespace TicketManagementSystemBums.MainWindow.Forms
             txtDescription.Text = ticket.Description;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void EditTicket(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+            this.NavigationService.Navigate(new EditTicketPage(this.ticket));
         }
-
-        private void SubmitTicket(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
-        }
-
     }
 }

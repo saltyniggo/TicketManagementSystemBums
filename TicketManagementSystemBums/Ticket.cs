@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TicketManagementSystemBums.MainWindow.OverviewPage;
 
 namespace TicketManagementSystemBums
 {
     public class Ticket
     {
+        public enum TicketStatus
+        {
+            Unassigned,
+            Assigned,
+            Completed
+        }
+
+        public TicketStatus Status { get; set; }
         public string Name { get; set; }
         public DateTime Date { get; set; }
         public int Priority { get; set; }

@@ -14,7 +14,7 @@
     </Page.FontFamily>
     <DockPanel>
         <Grid DockPanel.Dock="Left"
-              Background="#A663A1">
+              Background="#C2DAFF">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="30"/>
@@ -26,21 +26,25 @@
             </Grid.RowDefinitions>
             <Label Content="Placholder Title"
                    Grid.Row="0"
+                   Foreground="#16161D"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    FontSize="18"/>
             <Label Content="Placholder Link"
                    Grid.Row="1"
+                   Foreground="#16161D"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    FontSize="16"/>
             <Label Content="Placholder Link"
                    Grid.Row="2"
+                   Foreground="#16161D"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    FontSize="16"/>
             <Label Content="Placholder Link"
                    Grid.Row="3"
+                   Foreground="#16161D"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
                    FontSize="16"/>
@@ -87,15 +91,16 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" 
                        HorizontalAlignment="Center"
-                       Foreground="#D9B4CF"
+                       Foreground="#16161D"
                        FontSize="20"
                        FontWeight="Bold"
                        Content="Unassigned"/>
                 <ListBox Grid.Row="1"
                          x:Name="listUnassigned"
                          Background="Transparent"
-                         BorderBrush="#A663A1"
-                         Foreground="#D9B4CF">
+                         BorderBrush="#FFAF0F"
+                         BorderThickness="0,2,0,0"
+                         Foreground="#16161D">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" 
@@ -122,15 +127,33 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" 
                        HorizontalAlignment="Center"
-                       Foreground="#D9B4CF"
+                       Foreground="#16161D"
                        FontSize="20"
                        FontWeight="Bold"
                        Content="Assigned"/>
                 <ListBox Grid.Row="1"
                          x:Name="listAssigned"
                          Background="Transparent"
-                         BorderBrush="#A663A1"
-                         Foreground="#D9B4CF">
+                         BorderBrush="#FFAF0F"
+                         BorderThickness="2,2,0,0"
+                         Foreground="#16161D">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" 
+                                       MouseDown="Ticket_MouseDown">
+                                <Popup Name="DetailsPopup" 
+                                       Placement="Right" 
+                                       IsOpen="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Date}"/>
+                                        <TextBlock Text="{Binding Priority}"/>
+                                        <TextBlock Text="{Binding AssignedUser}"/>
+                                        <TextBlock Text="{Binding Description}"/>
+                                    </StackPanel>
+                                </Popup>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
             <Grid Grid.Column="2">
@@ -140,15 +163,33 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
                        HorizontalAlignment="Center"
-                       Foreground="#D9B4CF"
+                       Foreground="#16161D"
                        FontSize="20"
                        FontWeight="Bold"
                        Content="Completed"/>
                 <ListBox Grid.Row="1"
                          x:Name="listCompleted"
                          Background="Transparent"
-                         BorderBrush="#A663A1"
-                         Foreground="#D9B4CF">
+                         BorderBrush="#FFAF0F"
+                         BorderThickness="2,2,0,0"
+                         Foreground="#16161D">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" 
+                                       MouseDown="Ticket_MouseDown">
+                                <Popup Name="DetailsPopup" 
+                                       Placement="Right" 
+                                       IsOpen="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Date}"/>
+                                        <TextBlock Text="{Binding Priority}"/>
+                                        <TextBlock Text="{Binding AssignedUser}"/>
+                                        <TextBlock Text="{Binding Description}"/>
+                                    </StackPanel>
+                                </Popup>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
         </Grid>
