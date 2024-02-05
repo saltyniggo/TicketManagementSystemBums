@@ -13,30 +13,70 @@ namespace TicketManagementSystemBums
         private string userPassword;
         private string userMail;
 
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string UserPassword { get; set; }
-        public string UserMail { get; set; }
+        public int UserID
+        {
+            get
+            {
+                return this.userID;
+            }
+            set
+            {
+                this.userID = value;
+            }
+        }
+        public string UserName
+        {
+            get
+            {
+                return this.userName;
+            }
+            set
+            {
+                this.userName = value;
+            }
+        }
+        public string UserPassword
+        {
+            get
+            {
+                return this.userPassword;
+            }
+            set
+            {
+                this.userPassword = value;
+            }
+        }
+        public string UserMail
+        {
+            get
+            {
+                return this.userMail;
+            }
+            set
+            {
+                this.userMail = value;
+            }
+        }
         
         public User()
         {
-            userName = "undefined";
-            userPassword = "undefined";
-            userMail = "undefined";
+            this.UserName = "undefined";
+            this.UserPassword = "undefined";
+            this.UserMail = "undefined";
         }
 
         public User(string name, string password, string mail)
         {
-            userName = name;
-            userPassword = password;
-            userMail = mail;
+            this.UserName = name;
+            this.UserPassword = password;
+            this.UserMail = mail;
         }
 
-        public static void updateUser(User user, string name, string password, string mail)
+        public void updateUser(string name, string password, string mail)
         {
-            user.UserName = name;
-            user.UserPassword = password;
-            user.UserMail = mail;
+            this.UserName = name;
+            this.UserPassword = password;
+            this.UserMail = mail;
         }
     }
 }

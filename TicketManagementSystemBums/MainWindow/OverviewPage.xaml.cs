@@ -27,17 +27,57 @@ namespace TicketManagementSystemBums.MainWindow
         private static ListBox unassigned;
         private static ListBox assigned;
         private static ListBox completed;
-        private string userName = "Nirkor van Sccccc";
+        private string userName = "Nico Schulz";
 
-        public static ListBox Unassigned { get; set; }
-        public static ListBox Assigned { get; set; }
-        public static ListBox Completed { get; set; }
-
+        public static ListBox Unassigned
+        {
+            get
+            {
+                return unassigned;
+            }
+            set
+            {
+                unassigned = value;
+            }
+        }
+        public static ListBox Assigned
+        { 
+            get
+            {
+                return assigned;
+            }
+            set
+            {
+                assigned = value;
+            }
+        }
+        public static ListBox Completed
+        {
+            get
+            {
+                return completed;
+            }
+            set
+            {
+                completed = value;
+            }
+        }
+        public string UserName
+        {
+            get
+            {
+                return this.userName;
+            }
+            set
+            {
+                this.userName = value;
+            }
+        }
 
         public OverviewPage()
         {
             InitializeComponent();
-            sidebarTitle.Text = $"Welcome {userName}";
+            sidebarTitle.Text = $"Welcome {UserName}";
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
             Completed = listCompleted; 
@@ -86,13 +126,10 @@ namespace TicketManagementSystemBums.MainWindow
         }
         private void Ticket_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Ticket item = (sender as FrameworkElement).DataContext as Ticket;
-            if (currentDetailWindow != null)
-            {
-                currentDetailWindow.Close();
-            }
-            currentDetailWindow = new DetailWindow(item);
-            currentDetailWindow.Show();
+            Ticket? item = ((FrameworkElement)sender).DataContext as Ticket;
+            this.currentDetailWindow?.Close();
+            this.currentDetailWindow = new DetailWindow(item);
+            this.currentDetailWindow.Show();
         }
 
 

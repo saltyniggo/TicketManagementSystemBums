@@ -28,38 +28,108 @@ namespace TicketManagementSystemBums
             Critical
         }
 
-        public int TicketID { get; set; }
-        public string TicketName { get; set; }
-        public string TicketDescription { get; set; }
-        public TicketPriority Priority { get; set; }
-        public TicketStatus Status { get; set; }
-        public string TicketAssignedUser { get; set; }
-        public DateTime TicketDate { get; set; }
+        public int TicketID
+        {
+            get
+            {
+                return this.ticketID;
+            }
+            set
+            {
+                this.ticketID = value;
+            }
+        }
+        public string TicketName
+        {
+            get
+            {
+                return this.ticketName;
+            }
+            set
+            {
+                this.ticketName = value;
+            }
+        }
+        public string TicketDescription
+        {
+            get
+            {
+                return this.ticketDescription;
+            }
+            set
+            {
+                this.ticketDescription = value;
+            }
+        }
+        public TicketPriority Priority
+        {
+            get
+            {
+                return this.priority;
+            }
+            set
+            {
+                this.priority = value;
+            }
+        }
+        public TicketStatus Status
+        {
+            get
+            {
+                return this.status;
+            }
+            set
+            {
+                this.status = value;
+            }
+        }
+        public string TicketAssignedUser
+        {
+            get
+            {
+                return this.ticketAssignedUser;
+            }
+            set
+            {
+                this.ticketAssignedUser = value;
+            }
+        }
+        public DateTime TicketDate
+        {
+            get
+            {
+                return this.ticketDate;
+            }
+            set
+            {
+                this.ticketDate = value;
+            }
+        }
 
         public Ticket()
         {
-            ticketName = "undefined";
-            ticketDate = DateTime.Now;
-            priority = TicketPriority.Low;
-            ticketAssignedUser = "undefined";
-            ticketDescription = "undefined";
-            status = TicketStatus.Unassigned;
+            this.TicketName = "undefined";
+            this.TicketDate = DateTime.Now;
+            this.Priority = TicketPriority.Low;
+            this.TicketAssignedUser = "undefined";
+            this.TicketDescription = "undefined";
+            this.Status = TicketStatus.Unassigned;
         }
 
         public Ticket(string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
         {
-            ticketName = name;
-            ticketDate = date;
-            priority = priority;
-            ticketAssignedUser = assignedUser;
-            ticketDescription = description;
-            status = status;
+            this.TicketName = name;
+            this.TicketDate = date;
+            this.Priority = priority;
+            this.TicketAssignedUser = assignedUser;
+            this.TicketDescription = description;
+            this.Status = status;
         }
 
 
         public override string ToString()
         {
-            return TicketName;
+            return this.TicketName;
         }
     }
 }

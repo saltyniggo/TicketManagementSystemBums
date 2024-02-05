@@ -25,8 +25,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Placholder Title"
-                       x:Name="sidebarTitle"
+            <TextBlock x:Name="sidebarTitle"
                        Grid.Row="0"
                        Padding="5"
                        Foreground="#16161D"
