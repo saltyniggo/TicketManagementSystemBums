@@ -26,6 +26,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms
         {
             InitializeComponent();
         }
+        
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -36,6 +37,11 @@ namespace TicketManagementSystemBums.MainWindow.Forms
 
         private void AddTicket(object sender, RoutedEventArgs e)
         {
+            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "" || txtAssignedUser.Text == "")
+            {
+                MessageBox.Show("Please fill in all fields");
+                return;
+            }
             Ticket ticket = new Ticket
             {
                 TicketName = txtName.Text,

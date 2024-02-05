@@ -12,8 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TicketManagementSystemBums;
 using TicketManagementSystemBums.MainWindow;
 using static TicketManagementSystemBums.Ticket;
+using TicketManagementSystemBums.MainWindow.Forms;
 
 namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 {
@@ -22,7 +24,9 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
     /// </summary>
     public partial class EditTicketPage : Page
     {
-        private Ticket Ticket { get; set; }
+        public static event Action TicketUpdated;
+
+        public Ticket Ticket { get; set; }
         public EditTicketPage()
         {
             InitializeComponent();
@@ -39,57 +43,20 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtDescription.Text = ticket.TicketDescription;
         }
 
-        private void SubmitTicket(object sender, RoutedEventArgs e)
+            private void SubmitTicket(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtName.Text))
+            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
             {
-                Ticket.TicketName = txtName.Text;
-            }
-            else
-            {
-                MessageBox.Show("Invalid Ticket Name");
+                MessageBox.Show("Please fill in all fields");
                 return;
             }
-            if (DateTime.TryParse(txtDate.Text, out DateTime ticketDate))
-            {
-                Ticket.TicketDate = ticketDate;
-            }
-            else
-            {
-                MessageBox.Show("Invalid Date");
-                return;
-            }
-            if (Enum.TryParse(txtPriority.Text, out TicketPriority priority))
-            {
-                Ticket.Priority = priority;
-            }
-            else
-            {
-                MessageBox.Show("Invalid Priority");
-                return;
-            }
-            if (!string.IsNullOrWhiteSpace(txtAssignedUser.Text))
-            {
-                Ticket.TicketAssignedUser = txtAssignedUser.Text;
-            }
-            else
-            {
-                MessageBox.Show("Invalid Assigned User");
-                return;
-            }
-            if (!string.IsNullOrWhiteSpace(txtDescription.Text))
-            {
-                Ticket.TicketDescription = txtDescription.Text;
-            }
-            else
-            {
-                MessageBox.Show("Invalid Description");
-                return;
-            }
-
+            Ticket.TicketName = txtName.Text;
+            Ticket.TicketDate = txtDate.SelectedDate.Value;
+            Ticket.Priority = (TicketPriority)txtPriority.SelectedIndex;
+            Ticket.TicketAssignedUser= txtAssignedUser.Text;
+            Ticket.TicketDescription = txtDescription.Text;
+            TicketUpdated?.Invoke();
             Window.GetWindow(this).Close();
         }
-
-
     }
 }

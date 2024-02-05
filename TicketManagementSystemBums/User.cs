@@ -17,66 +17,66 @@ namespace TicketManagementSystemBums
         {
             get
             {
-                return this.userID;
+                return userID;
             }
             set
             {
-                this.userID = value;
+                userID = value;
             }
         }
         public string UserName
         {
             get
             {
-                return this.userName;
+                return userName;
             }
             set
             {
-                this.userName = value;
+                userName = value;
             }
         }
         public string UserPassword
         {
             get
             {
-                return this.userPassword;
+                return userPassword;
             }
             set
             {
-                this.userPassword = value;
+                userPassword = value;
             }
         }
         public string UserMail
         {
             get
             {
-                return this.userMail;
+                return userMail;
             }
             set
             {
-                this.userMail = value;
+                userMail = value;
             }
         }
         
         public User()
         {
-            this.UserName = "undefined";
-            this.UserPassword = "undefined";
-            this.UserMail = "undefined";
+            UserName = "undefined";
+            UserPassword = "undefined";
+            UserMail = "undefined";
         }
 
         public User(string name, string password, string mail)
         {
-            this.UserName = name;
-            this.UserPassword = password;
-            this.UserMail = mail;
+            UserName = name;
+            UserPassword = password;
+            UserMail = mail;
         }
 
         public void updateUser(string name, string password, string mail)
         {
-            this.UserName = name;
-            this.UserPassword = password;
-            this.UserMail = mail;
+            UserName = name;
+            UserPassword = password;
+            UserMail = mail;
         }
     }
 }
