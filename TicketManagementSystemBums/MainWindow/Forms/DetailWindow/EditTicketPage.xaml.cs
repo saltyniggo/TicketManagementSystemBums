@@ -41,14 +41,55 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 
         private void SubmitTicket(object sender, RoutedEventArgs e)
         {
-            Ticket.TicketName = txtName.Text;
-            Ticket.TicketDate = DateTime.Parse(txtDate.Text);
-            Enum.TryParse(txtPriority.Text, out TicketPriority priority);
-            Ticket.Priority = (TicketPriority)priority;
-            Ticket.TicketAssignedUser = txtAssignedUser.Text;
-            Ticket.TicketDescription = txtDescription.Text;
+            if (!string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                Ticket.TicketName = txtName.Text;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Ticket Name");
+                return;
+            }
+            if (DateTime.TryParse(txtDate.Text, out DateTime ticketDate))
+            {
+                Ticket.TicketDate = ticketDate;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Date");
+                return;
+            }
+            if (Enum.TryParse(txtPriority.Text, out TicketPriority priority))
+            {
+                Ticket.Priority = priority;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Priority");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(txtAssignedUser.Text))
+            {
+                Ticket.TicketAssignedUser = txtAssignedUser.Text;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Assigned User");
+                return;
+            }
+            if (!string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                Ticket.TicketDescription = txtDescription.Text;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Description");
+                return;
+            }
+
             Window.GetWindow(this).Close();
         }
+
 
     }
 }

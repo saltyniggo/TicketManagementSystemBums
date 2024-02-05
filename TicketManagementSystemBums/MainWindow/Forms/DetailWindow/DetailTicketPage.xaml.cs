@@ -37,8 +37,8 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         {
             this.ticket = ticket;
             InitializeComponent();
+            txtDate.Text = ticket.TicketDate.ToString("dd/MM/yyyy");
             txtName.Text = ticket.TicketName;
-            txtDate.Text = ticket.TicketDate.ToString();
             txtPriority.Text = ticket.Priority.ToString();
             txtAssignedUser.Text = ticket.TicketAssignedUser;
             txtDescription.Text = ticket.TicketDescription;

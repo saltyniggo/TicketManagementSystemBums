@@ -49,7 +49,7 @@ namespace TicketManagementSystemBums.MainWindow
                 Ticket ticket = new Ticket
                 {
                     TicketName = randomString,
-                    TicketDate = DateTime.Now.AddDays(random.Next(-10, 10)),
+                    TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
                     Priority = (TicketPriority)random.Next(0, 4),
                     TicketAssignedUser = "User" + random.Next(1, 5),
                     TicketDescription = "Description" + random.Next(1, 100),
