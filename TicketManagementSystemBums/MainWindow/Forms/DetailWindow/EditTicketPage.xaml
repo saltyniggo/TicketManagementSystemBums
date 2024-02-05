@@ -45,7 +45,7 @@
                  x:Name="txtName"
                  Margin="10"
                  FontSize="14"
-                 Background="#C2DAFF"
+                 Background="#fefefe"
                  BorderBrush="#16161D"
                  VerticalContentAlignment="Center"
                  TextWrapping="Wrap"/>
@@ -54,29 +54,45 @@
                VerticalAlignment="Center"
                FontSize="16"
                Content="Date:"/>
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 x:Name="txtDate"
-                 Margin="10"
-                 FontSize="14"
-                 Background="#C2DAFF"
-                 BorderBrush="#16161D"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
+        <DatePicker Grid.Row="2"
+                    Grid.Column="1"
+                    x:Name="txtDate"
+                    Margin="10"
+                    FontSize="14"
+                    Background="#fefefe"
+                    BorderBrush="#16161D"
+                    VerticalContentAlignment="Center">
+        </DatePicker>
         <Label Grid.Row="3"
                Grid.Column="0"
                VerticalAlignment="Center"
                FontSize="16"
                Content="Priority:"/>
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 x:Name="txtPriority"
-                 Margin="10"
-                 FontSize="14"
-                 Background="#C2DAFF"
-                 BorderBrush="#16161D"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
+        <ComboBox Grid.Row="3"
+                  Grid.Column="1"
+                  x:Name="txtPriority"
+                  Margin="10"
+                  FontSize="14"
+                  Background="#fefefe"
+                  BorderBrush="#16161D"
+                  VerticalContentAlignment="Center">
+            <ComboBoxItem FontSize="14"
+                          Background="#fefefe"
+                          BorderBrush="#16161D">
+                Low</ComboBoxItem>
+            <ComboBoxItem FontSize="14"
+                          Background="#fefefe"
+                          BorderBrush="#16161D">
+                Medium</ComboBoxItem>
+            <ComboBoxItem FontSize="14"
+                          Background="#fefefe"
+                          BorderBrush="#16161D">
+                High</ComboBoxItem>
+            <ComboBoxItem FontSize="14"
+                          Background="#fefefe"
+                          BorderBrush="#16161D">
+                Critical</ComboBoxItem>
+        </ComboBox>
         <Label Grid.Row="4"
                Grid.Column="0"
                VerticalAlignment="Center"
@@ -87,7 +103,7 @@
                  x:Name="txtAssignedUser"
                  Margin="10"
                  FontSize="14"
-                 Background="#C2DAFF"
+                 Background="#fefefe"
                  BorderBrush="#16161D"
                  VerticalContentAlignment="Center"
                  TextWrapping="Wrap"/>
@@ -102,7 +118,7 @@
                  x:Name="txtDescription"
                  Margin="10"
                  FontSize="14"
-                 Background="#C2DAFF"
+                 Background="#fefefe"
                  BorderBrush="#16161D"
                  TextWrapping="Wrap"/>
         <Button Grid.Row="5"
