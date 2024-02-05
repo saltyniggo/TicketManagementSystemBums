@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static TicketManagementSystemBums.Ticket;
+using TicketManagementSystemBums.MainWindow;
 
 namespace TicketManagementSystemBums.MainWindow.Forms
 {
@@ -33,6 +36,27 @@ namespace TicketManagementSystemBums.MainWindow.Forms
 
         private void AddTicket(object sender, RoutedEventArgs e)
         {
+            Ticket ticket = new Ticket
+            {
+                TicketName = txtName.Text,
+                TicketDate = DateTime.Parse(txtDate.Text),
+                Priority = (TicketPriority)Enum.Parse(typeof(TicketPriority), txtPriority.Text),
+                TicketAssignedUser = txtAssignedUser.Text,
+                TicketDescription = txtDescription.Text,
+                Status = TicketStatus.Unassigned
+            };
+            switch (ticket.Status)
+            {
+                case TicketStatus.Unassigned:
+                    OverviewPage.Unassigned.Items.Add(ticket);
+                    break;
+                case TicketStatus.Assigned:
+                    OverviewPage.Assigned.Items.Add(ticket);
+                    break;
+                case TicketStatus.Completed:
+                    OverviewPage.Completed.Items.Add(ticket);
+                    break;
+            }
             Window.GetWindow(this).Close();
         }
     }

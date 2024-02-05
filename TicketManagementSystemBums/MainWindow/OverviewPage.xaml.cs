@@ -24,13 +24,26 @@ namespace TicketManagementSystemBums.MainWindow
     public partial class OverviewPage : Page
     {
         private DetailWindow currentDetailWindow;
+        private static ListBox unassigned;
+        private static ListBox assigned;
+        private static ListBox completed;
+        private string userName = "Nirkor van Sccccc";
+
+        public static ListBox Unassigned { get; set; }
+        public static ListBox Assigned { get; set; }
+        public static ListBox Completed { get; set; }
 
 
         public OverviewPage()
         {
             InitializeComponent();
+            sidebarTitle.Text = $"Welcome {userName}";
+            Unassigned = listUnassigned;
+            Assigned = listAssigned; 
+            Completed = listCompleted; 
             FillLists();
         }
+
 
         private void OpenAddTicketForm(object sender, RoutedEventArgs e)
         {
