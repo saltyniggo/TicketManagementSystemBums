@@ -28,8 +28,9 @@ namespace TicketManagementSystemBums.MainWindow
         private static ListBox unassigned;
         private static ListBox assigned;
         private static ListBox completed;
-        private List<Ticket> tickets = new List<Ticket>();
         private string userName = "Nico Schulz";
+
+        public static List<Ticket> Tickets = new List<Ticket>();
 
         public static ListBox Unassigned
         {
@@ -64,17 +65,6 @@ namespace TicketManagementSystemBums.MainWindow
                 completed = value;
             }
         }
-        public List<Ticket> Tickets
-        {
-            get
-            {
-                return tickets;
-            }
-            set
-            {
-                tickets = value;
-            }
-        }   
         public string UserName
         {
             get
@@ -97,6 +87,7 @@ namespace TicketManagementSystemBums.MainWindow
             FillLists();
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
+            AddTicketWindow.TicketAdded += RefreshLists;
         }
 
 
@@ -116,27 +107,14 @@ namespace TicketManagementSystemBums.MainWindow
 
                 Ticket ticket = new Ticket()
                 {
-                    TicketName = randomString,
+                    TicketName = "test" + randomString,
                     TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
                     Priority = (TicketPriority)random.Next(0, 4),
                     TicketAssignedUser = "User" + random.Next(1, 5),
                     TicketDescription = "Description" + random.Next(1, 100),
                     Status = (TicketStatus)random.Next(0, 3)
                 };
-                tickets.Add(ticket);
-
-                //switch (ticket.Status)
-                //{
-                //    case TicketStatus.Unassigned:
-                //        listUnassigned.Items.Add(ticket);
-                //        break;
-                //    case TicketStatus.Assigned:
-                //        listAssigned.Items.Add(ticket);
-                //        break;
-                //    case TicketStatus.Completed:
-                //        listCompleted.Items.Add(ticket);
-                //        break;
-                //}
+                Tickets.Add(ticket);
             }
         }
 
@@ -146,7 +124,7 @@ namespace TicketManagementSystemBums.MainWindow
             listAssigned.Items.Clear();
             listCompleted.Items.Clear();
 
-            foreach (var ticket in tickets)
+            foreach (var ticket in Tickets)
             {
                 switch (ticket.Status)
                 {

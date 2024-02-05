@@ -116,8 +116,9 @@ namespace TicketManagementSystemBums
             Status = TicketStatus.Unassigned;
         }
 
-        public Ticket(string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
+        public Ticket(int id, string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
         {
+            TicketID = id;
             TicketName = name;
             TicketDate = date;
             Priority = priority;

@@ -43,7 +43,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtDescription.Text = ticket.TicketDescription;
         }
 
-            private void SubmitTicket(object sender, RoutedEventArgs e)
+        private void SubmitTicket(object sender, RoutedEventArgs e)
         {
             while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
             {
@@ -53,8 +53,14 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             Ticket.TicketName = txtName.Text;
             Ticket.TicketDate = txtDate.SelectedDate.Value;
             Ticket.Priority = (TicketPriority)txtPriority.SelectedIndex;
-            Ticket.TicketAssignedUser= txtAssignedUser.Text;
+            Ticket.TicketAssignedUser = txtAssignedUser.Text;
             Ticket.TicketDescription = txtDescription.Text;
+
+            if (Ticket.Status != TicketStatus.Completed)
+            {
+                Ticket.Status = string.IsNullOrEmpty(txtAssignedUser.Text) ? TicketStatus.Unassigned : TicketStatus.Assigned;
+            }
+
             TicketUpdated?.Invoke();
             Window.GetWindow(this).Close();
         }

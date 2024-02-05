@@ -22,6 +22,8 @@ namespace TicketManagementSystemBums.MainWindow.Forms
     /// </summary>
     public partial class AddTicketWindow : Window
     {
+        public static event Action TicketAdded;
+
         public AddTicketWindow()
         {
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms
 
         private void AddTicket(object sender, RoutedEventArgs e)
         {
-            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "" || txtAssignedUser.Text == "")
+            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
             {
                 MessageBox.Show("Please fill in all fields");
                 return;
@@ -49,20 +51,10 @@ namespace TicketManagementSystemBums.MainWindow.Forms
                 Priority = (TicketPriority)Enum.Parse(typeof(TicketPriority), txtPriority.Text),
                 TicketAssignedUser = txtAssignedUser.Text,
                 TicketDescription = txtDescription.Text,
-                Status = TicketStatus.Unassigned
+                Status = txtAssignedUser.Text == "" ? TicketStatus.Unassigned : TicketStatus.Assigned
             };
-            switch (ticket.Status)
-            {
-                case TicketStatus.Unassigned:
-                    OverviewPage.Unassigned.Items.Add(ticket);
-                    break;
-                case TicketStatus.Assigned:
-                    OverviewPage.Assigned.Items.Add(ticket);
-                    break;
-                case TicketStatus.Completed:
-                    OverviewPage.Completed.Items.Add(ticket);
-                    break;
-            }
+            OverviewPage.Tickets.Add(ticket);
+            TicketAdded?.Invoke();
             Window.GetWindow(this).Close();
         }
     }
