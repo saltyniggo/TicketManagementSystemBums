@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static TicketManagementSystemBums.MainWindow.OverviewPage;
-
-namespace TicketManagementSystemBums
+﻿namespace TicketManagementSystemBums
 {
     public class Ticket
     {
+        private int ticketID;
+        private string ticketName;
+        private string ticketDescription;
+        private TicketPriority priority;
+        private TicketStatus status;
+        private string ticketAssignedUser;
+        private DateTime ticketDate;
+
+
         public enum TicketStatus
         {
             Unassigned,
@@ -16,16 +18,46 @@ namespace TicketManagementSystemBums
             Completed
         }
 
+        public enum TicketPriority
+        {
+            Low,
+            Medium,
+            High,
+            Critical
+        }
+
+        public int TicketID { get; set; }
+        public string TicketName { get; set; }
+        public string TicketDescription { get; set; }
+        public TicketStatus Priority { get; set; }
         public TicketStatus Status { get; set; }
-        public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public int Priority { get; set; }
-        public string AssignedUser { get; set; }
-        public string Description { get; set; }
+        public string TicketAssignedUser { get; set; }
+        public DateTime TicketDate { get; set; }
+
+        public Ticket()
+        {
+            ticketName = "undefined";
+            ticketDate = DateTime.Now;
+            priority = TicketPriority.Low;
+            ticketAssignedUser = "undefined";
+            ticketDescription = "undefined";
+            status = TicketStatus.Unassigned;
+        }
+
+        public Ticket(string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
+        {
+            ticketName = name;
+            ticketDate = date;
+            priority = priority;
+            ticketAssignedUser = assignedUser;
+            ticketDescription = description;
+            status = status;
+        }
+
 
         public override string ToString()
         {
-            return Name;
+            return TicketName;
         }
     }
 }
