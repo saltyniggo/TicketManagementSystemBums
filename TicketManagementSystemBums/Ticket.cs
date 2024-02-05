@@ -1,4 +1,6 @@
-﻿namespace TicketManagementSystemBums
+﻿using System.Printing.IndexedProperties;
+
+namespace TicketManagementSystemBums
 {
     public class Ticket
     {
@@ -29,7 +31,7 @@
         public int TicketID { get; set; }
         public string TicketName { get; set; }
         public string TicketDescription { get; set; }
-        public TicketStatus Priority { get; set; }
+        public TicketPriority Priority { get; set; }
         public TicketStatus Status { get; set; }
         public string TicketAssignedUser { get; set; }
         public DateTime TicketDate { get; set; }
