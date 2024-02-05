@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicketManagementSystemBums.MainWindow;
+using static TicketManagementSystemBums.Ticket;
 
 namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 {
@@ -31,21 +32,23 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         {
             this.Ticket = ticket;
             InitializeComponent();
-            txtName.Text = ticket.Name;
-            txtDate.Text = ticket.Date.ToString();
+            txtName.Text = ticket.TicketName;
+            txtDate.Text = ticket.TicketDate.ToString();
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.AssignedUser;
-            txtDescription.Text = ticket.Description;
+            txtAssignedUser.Text = ticket.TicketAssignedUser;
+            txtDescription.Text = ticket.TicketDescription;
         }
-        
+
         private void SubmitTicket(object sender, RoutedEventArgs e)
         {
-            Ticket.Name = txtName.Text;
-            Ticket.Date = DateTime.Parse(txtDate.Text);
-            Ticket.Priority = int.Parse(txtPriority.Text);
-            Ticket.AssignedUser = txtAssignedUser.Text;
-            Ticket.Description = txtDescription.Text;
+            Ticket.TicketName = txtName.Text;
+            Ticket.TicketDate = DateTime.Parse(txtDate.Text);
+            Enum.TryParse(txtPriority.Text, out TicketPriority priority);
+            Ticket.Priority = (TicketPriority)priority;
+            Ticket.TicketAssignedUser = txtAssignedUser.Text;
+            Ticket.TicketDescription = txtDescription.Text;
             Window.GetWindow(this).Close();
         }
+
     }
 }

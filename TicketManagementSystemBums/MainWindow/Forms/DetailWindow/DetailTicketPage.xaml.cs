@@ -37,11 +37,11 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         {
             this.ticket = ticket;
             InitializeComponent();
-            txtName.Text = ticket.Name;
-            txtDate.Text = ticket.Date.ToString();
+            txtName.Text = ticket.TicketName;
+            txtDate.Text = ticket.TicketDate.ToString();
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.AssignedUser;
-            txtDescription.Text = ticket.Description;
+            txtAssignedUser.Text = ticket.TicketAssignedUser;
+            txtDescription.Text = ticket.TicketDescription;
         }
 
         private void EditTicket(object sender, RoutedEventArgs e)
