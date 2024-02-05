@@ -48,11 +48,11 @@ namespace TicketManagementSystemBums.MainWindow
 
                 Ticket ticket = new Ticket
                 {
-                    Name = randomString,
-                    Date = DateTime.Now.AddDays(random.Next(-10, 10)),
-                    Priority = random.Next(1, 5),
-                    AssignedUser = "User" + random.Next(1, 5),
-                    Description = "Description" + random.Next(1, 100),
+                    TicketName = randomString,
+                    TicketDate = DateTime.Now.AddDays(random.Next(-10, 10)),
+                    TicketPriority = (TicketPriority)random.Next(1, 4),
+                    TicketAssignedUser = "User" + random.Next(1, 5),
+                    TicketDescription = "Description" + random.Next(1, 100),
                     Status = (TicketStatus)random.Next(0, 3)
                 };
 

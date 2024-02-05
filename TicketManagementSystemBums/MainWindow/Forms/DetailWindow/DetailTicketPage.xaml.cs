@@ -26,6 +26,11 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         public DetailTicketPage()
         {
             InitializeComponent();
+            txtName.Text = "DATA_MISSING";
+            txtDate.Text = "DATA_MISSING";
+            txtPriority.Text = "DATA_MISSING";
+            txtAssignedUser.Text = "DATA_MISSING";
+            txtDescription.Text = "DATA_MISSING";
         }
 
         public DetailTicketPage(Ticket ticket)
