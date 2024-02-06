@@ -12,6 +12,44 @@
     <Page.FontFamily>
         <FontFamily>Montserrat</FontFamily>
     </Page.FontFamily>
+    <Page.Resources>
+        <Style x:Key="StyledToggleButton" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Rectangle x:Name="Background" Fill="#DBEAFF" Height="20" RadiusX="10" RadiusY="10"/>
+                            <Rectangle x:Name="ActiveTrack" Fill="#FFAF0F" Width="20" Height="20" RadiusX="10" RadiusY="10" HorizontalAlignment="Left">
+                                <Rectangle.RenderTransform>
+                                    <TranslateTransform x:Name="SliderTransform"/>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SliderTransform" Storyboard.TargetProperty="X" To="20" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SliderTransform" Storyboard.TargetProperty="X" To="0" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="Background" Property="Fill" Value="#00204F"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
     <DockPanel>
         <Grid DockPanel.Dock="Left"
               Background="#C2DAFF"
@@ -63,8 +101,56 @@
                     FontSize="16"
                     Click="logout"/>
         </Grid>
-        <Grid DockPanel.Dock="Right">
-            
+        <Grid DockPanel.Dock="Right"
+              Margin="120,60">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Settings"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Padding="5"
+                       Foreground="#16161D"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="32"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"/>
+            <ToggleButton Grid.Row="1"
+                          Grid.Column="0"
+                          Style="{StaticResource StyledToggleButton}"/>
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="20,0,0,0"
+                   Content="Enable Darkmode"
+                   VerticalAlignment="Center"
+                   FontSize="20"/>
+            <ToggleButton Grid.Row="2"
+                          Grid.Column="0"
+                          Style="{StaticResource StyledToggleButton}"/>
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Content="Colorblind Mode"
+                   Margin="20,0,0,0"
+                   VerticalAlignment="Center"
+                   FontSize="20"/>
+            <ToggleButton Grid.Row="3"
+                          Grid.Column="0"
+                          Style="{StaticResource StyledToggleButton}"/>
+            <Label Grid.Row="3"
+                   Grid.Column="1"
+                   Content="Automatic Backups"
+                   Margin="20,0,0,0"
+                   VerticalAlignment="Center"
+                   FontSize="20"/>
         </Grid>
     </DockPanel>
 </Page>
