@@ -165,5 +165,14 @@ namespace TicketManagementSystemBums.MainWindow
             new StartWindow().Show();
             Window.GetWindow(this).Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 1234; i++)
+            {
+                FillLists();
+            }
+            RefreshLists();
+        }
     }
 }

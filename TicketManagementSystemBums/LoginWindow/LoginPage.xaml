@@ -50,6 +50,7 @@
                  TextWrapping="Wrap"
                  Background="#FEFEFE"
                  Foreground="#16161D"
+                 Text="test"
                  FontSize="20"/>
         <Label Grid.Row="3"
                Grid.ColumnSpan="2"
