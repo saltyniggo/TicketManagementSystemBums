@@ -43,13 +43,18 @@ namespace TicketManagementSystemBums.LoginWindow
 
         private void ForgotPassword(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new ForgotPasswordPage());
-            throw new Exception("Not implemented");
+            this.NavigationService.Navigate(new ForgotPasswordPage());
         }
 
         private void ClickedLogin(object sender, RoutedEventArgs e)
         {
-            new MainWindow.MainWindow().Show();
+            if (txtBoxEmail.Text == "test")
+            {
+                new MainWindow.MainWindow("test").Show();
+            } else
+            {
+                new MainWindow.MainWindow().Show();
+            }
             Window.GetWindow(this).Close();
         }
     }

@@ -28,7 +28,6 @@ namespace TicketManagementSystemBums.MainWindow
         private static ListBox unassigned;
         private static ListBox assigned;
         private static ListBox completed;
-        private string userName = "Nico Schulz";
 
         public static List<Ticket> Tickets = new List<Ticket>();
 
@@ -65,25 +64,26 @@ namespace TicketManagementSystemBums.MainWindow
                 completed = value;
             }
         }
-        public string UserName
-        {
-            get
-            {
-                return userName;
-            }
-            set
-            {
-                userName = value;
-            }
-        }
 
         public OverviewPage()
         {
             InitializeComponent();
-            sidebarTitle.Text = $"Welcome {UserName}";
+            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
             Completed = listCompleted; 
+            RefreshLists();
+            EditTicketPage.TicketUpdated += RefreshLists;
+            AddTicketWindow.TicketAdded += RefreshLists;
+        }
+
+        public OverviewPage(string test)
+        {
+            InitializeComponent();
+            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
+            Unassigned = listUnassigned;
+            Assigned = listAssigned;
+            Completed = listCompleted;
             FillLists();
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
@@ -155,14 +155,9 @@ namespace TicketManagementSystemBums.MainWindow
             this.currentDetailWindow.Show();
         }
 
-        private void openAccount(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void openSettings(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new SettingsPage());
         }
 
         private void logout(object sender, RoutedEventArgs e)
