@@ -64,5 +64,10 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             TicketUpdated?.Invoke();
             Window.GetWindow(this).Close();
         }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
+        }
     }
 }

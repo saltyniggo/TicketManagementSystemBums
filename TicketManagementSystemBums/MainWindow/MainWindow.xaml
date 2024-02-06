@@ -55,10 +55,8 @@
                                     BorderThickness="2"
                                     Click="MinimizeWindow"/>
                             <Button Content="X" 
-                                    Width="35" 
-                                    Height="35"
+                                    Width="35"
                                     Grid.Column="3"
-                                    VerticalAlignment="Top"
                                     VerticalContentAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     Background="Transparent"

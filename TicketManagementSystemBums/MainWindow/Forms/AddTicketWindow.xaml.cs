@@ -57,5 +57,15 @@ namespace TicketManagementSystemBums.MainWindow.Forms
             TicketAdded?.Invoke();
             Window.GetWindow(this).Close();
         }
+
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
+        }
     }
 }

@@ -48,5 +48,10 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         {
             this.NavigationService.Navigate(new EditTicketPage(this.ticket));
         }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
+        }
     }
 }
