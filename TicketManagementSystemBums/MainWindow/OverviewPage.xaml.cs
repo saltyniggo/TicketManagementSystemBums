@@ -28,7 +28,6 @@ namespace TicketManagementSystemBums.MainWindow
         private static ListBox unassigned;
         private static ListBox assigned;
         private static ListBox completed;
-        private string userName = "Nico Schulz";
 
         public static List<Ticket> Tickets = new List<Ticket>();
 
@@ -65,25 +64,26 @@ namespace TicketManagementSystemBums.MainWindow
                 completed = value;
             }
         }
-        public string UserName
-        {
-            get
-            {
-                return userName;
-            }
-            set
-            {
-                userName = value;
-            }
-        }
 
         public OverviewPage()
         {
             InitializeComponent();
-            sidebarTitle.Text = $"Welcome {UserName}";
+            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
             Completed = listCompleted; 
+            RefreshLists();
+            EditTicketPage.TicketUpdated += RefreshLists;
+            AddTicketWindow.TicketAdded += RefreshLists;
+        }
+
+        public OverviewPage(string test)
+        {
+            InitializeComponent();
+            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
+            Unassigned = listUnassigned;
+            Assigned = listAssigned;
+            Completed = listCompleted;
             FillLists();
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
@@ -104,15 +104,21 @@ namespace TicketManagementSystemBums.MainWindow
             {
                 string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
+                string assigenedUser = "";
+                TicketStatus status = (TicketStatus)random.Next(0, 3);
+                if (status != TicketStatus.Unassigned)
+                {
+                    assigenedUser += "User" + random.Next(1, 5);
+                }
 
                 Ticket ticket = new Ticket()
                 {
                     TicketName = "test" + randomString,
                     TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
                     Priority = (TicketPriority)random.Next(0, 4),
-                    TicketAssignedUser = "User" + random.Next(1, 5),
+                    TicketAssignedUser = assigenedUser,
                     TicketDescription = "Description" + random.Next(1, 100),
-                    Status = (TicketStatus)random.Next(0, 3)
+                    Status = status
                 };
                 Tickets.Add(ticket);
             }
@@ -149,14 +155,9 @@ namespace TicketManagementSystemBums.MainWindow
             this.currentDetailWindow.Show();
         }
 
-        private void openAccount(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void openSettings(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new SettingsPage());
         }
 
         private void logout(object sender, RoutedEventArgs e)

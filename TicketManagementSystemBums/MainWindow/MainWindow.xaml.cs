@@ -19,10 +19,29 @@ namespace TicketManagementSystemBums.MainWindow
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static string userName = "Nico Schulz";
+
+        public static string UserName
+        {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             MainFrame.Navigate(new OverviewPage());
+        }
+        public MainWindow(string test)
+        {
+            InitializeComponent();
+            MainFrame.Navigate(new OverviewPage(test));
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -34,7 +34,7 @@
                        FontSize="18"
                        TextWrapping="Wrap"
                        TextAlignment="Center"/>
-            <Button Content="Account"
+            <Button Content="Overview"
                     Grid.Row="1"
                     Foreground="#16161D"
                     Background="Transparent"
@@ -42,7 +42,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     FontSize="16"
-                    Click="openAccount" Margin="0,0,0,4"/>
+                    Margin="0,0,0,4"/>
             <Button Content="Settings"
                     Grid.Row="2"
                     Foreground="#16161D"
@@ -51,7 +51,8 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom"
                     FontSize="16"
-                    Click="openSettings" Margin="0,0,0,4"/>
+                    Click="openSettings" 
+                    Margin="0,0,0,4"/>
             <Button Content="Logout"
                     Grid.Row="3"
                     Foreground="#16161D"
