@@ -28,32 +28,103 @@ namespace TicketManagementSystemBums
             Critical
         }
 
-        public int TicketID { get; set; }
-        public string TicketName { get; set; }
-        public string TicketDescription { get; set; }
-        public TicketPriority Priority { get; set; }
-        public TicketStatus Status { get; set; }
-        public string TicketAssignedUser { get; set; }
-        public DateTime TicketDate { get; set; }
+        public int TicketID
+        {
+            get
+            {
+                return ticketID;
+            }
+            set
+            {
+                ticketID = value;
+            }
+        }
+        public string TicketName
+        {
+            get
+            {
+                return ticketName;
+            }
+            set
+            {
+                ticketName = value;
+            }
+        }
+        public string TicketDescription
+        {
+            get
+            {
+                return ticketDescription;
+            }
+            set
+            {
+                ticketDescription = value;
+            }
+        }
+        public TicketPriority Priority
+        {
+            get
+            {
+                return priority;
+            }
+            set
+            {
+                priority = value;
+            }
+        }
+        public TicketStatus Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+            }
+        }
+        public string TicketAssignedUser
+        {
+            get
+            {
+                return ticketAssignedUser;
+            }
+            set
+            {
+                ticketAssignedUser = value;
+            }
+        }
+        public DateTime TicketDate
+        {
+            get
+            {
+                return ticketDate;
+            }
+            set
+            {
+                ticketDate = value;
+            }
+        }
 
         public Ticket()
         {
-            ticketName = "undefined";
-            ticketDate = DateTime.Now;
-            priority = TicketPriority.Low;
-            ticketAssignedUser = "undefined";
-            ticketDescription = "undefined";
-            status = TicketStatus.Unassigned;
+            TicketName = "undefined";
+            TicketDate = DateTime.Now;
+            Priority = TicketPriority.Low;
+            TicketAssignedUser = "undefined";
+            TicketDescription = "undefined";
+            Status = TicketStatus.Unassigned;
         }
 
-        public Ticket(string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
+        public Ticket(int id, string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
         {
-            ticketName = name;
-            ticketDate = date;
-            priority = priority;
-            ticketAssignedUser = assignedUser;
-            ticketDescription = description;
-            status = status;
+            TicketID = id;
+            TicketName = name;
+            TicketDate = date;
+            Priority = priority;
+            TicketAssignedUser = assignedUser;
+            TicketDescription = description;
+            Status = status;
         }
 
 

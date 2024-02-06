@@ -13,90 +13,154 @@
     <Window.FontFamily>
         <FontFamily>Montserrat</FontFamily>
     </Window.FontFamily>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" 
-               Grid.Column="0" 
-               Grid.ColumnSpan="3" 
-               Content="Add Ticket"
-               HorizontalAlignment="Center"
-               FontSize="32"
-               VerticalAlignment="Center"/>
-        <Label Grid.Row="1" 
-               Grid.Column="0"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Content="Title:"/>
-        <TextBox Grid.Row="1" 
-                 Grid.Column="1"
-                 Margin="10"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Content="Date:"/>
-        <TextBox Grid.Row="2"
-                 Grid.Column="1"
-                 Margin="10"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Content="Priority:"/>
-        <TextBox Grid.Row="3"
-                 Grid.Column="1"
-                 Margin="10"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Content="Assigned to:"/>
-        <TextBox Grid.Row="4"
-                 Grid.Column="1"
-                 Margin="10"
-                 FontSize="14"
-                 VerticalContentAlignment="Center"
-                 TextWrapping="Wrap"/>
-        <Label Grid.Row="1"
-               Grid.Column="2"
-               VerticalAlignment="Center"
-               FontSize="16"
-               Content="Description:"/>
-        <TextBox Grid.Row="2"
-                 Grid.Column="2"
-                 Grid.RowSpan="3"
-                 Margin="10"
-                 FontSize="14"
-                 TextWrapping="Wrap"/>
-        <Button Grid.Row="5"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Width="100"
-                Height="50"
-                VerticalContentAlignment="Center"
-                Content="Add" 
-                FontSize="18"
-                Click="AddTicket"/>
-    </Grid>
+    <Window.Background>
+        <SolidColorBrush Color="#fefefe"/>
+    </Window.Background>
+    <Border BorderBrush="#00204F"
+        BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" 
+                   Grid.Column="1" 
+                   Grid.ColumnSpan="2"
+                   Content="Add Ticket"
+                   HorizontalAlignment="Center"
+                   FontSize="32"
+                   VerticalAlignment="Center"/>
+            <Button Content="_" 
+                    Width="35" 
+                    Height="35"
+                    Grid.Column="3"
+                    VerticalAlignment="Top"
+                    VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right"
+                    HorizontalContentAlignment="Center"
+                    Background="Transparent"
+                    Foreground="#16161D"
+                    FontWeight="bold"
+                    FontSize="18"
+                    BorderBrush="#16161D"
+                    BorderThickness="2,0,0,2"
+                    Click="MinimizeWindow"/>
+            <Button Content="X" 
+                    Width="35" 
+                    Height="35"
+                    Grid.Column="4"
+                    VerticalAlignment="Top"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Background="Transparent"
+                    Foreground="#16161D"
+                    FontWeight="bold"
+                    FontSize="18"
+                    BorderBrush="#16161D"
+                    BorderThickness="2,0,0,2"
+                    Click="CloseWindow"/>
+            <Label Grid.Row="1" 
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Content="Title:"/>
+            <TextBox Grid.Row="1" 
+                     Grid.Column="1"
+                     x:Name="txtName"
+                     Margin="10"
+                     FontSize="14"
+                     VerticalContentAlignment="Center"
+                     TextWrapping="Wrap"/>
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Content="Date:"/>
+            <DatePicker Grid.Row="2"
+                        Grid.Column="1"
+                        x:Name="txtDate"
+                        Margin="10"
+                        FontSize="14"
+                        Background="#fefefe"
+                        BorderBrush="#16161D"
+                        VerticalContentAlignment="Center">
+            </DatePicker>
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Content="Priority:"/>
+            <ComboBox Grid.Row="3"
+                      Grid.Column="1"
+                      x:Name="txtPriority"
+                      Margin="10"
+                      FontSize="14"
+                      Background="#fefefe"
+                      BorderBrush="#16161D"
+                      VerticalContentAlignment="Center">
+                <ComboBoxItem FontSize="14"
+                              Background="#fefefe"
+                              BorderBrush="#16161D">
+                    Low</ComboBoxItem>
+                <ComboBoxItem FontSize="14"
+                              Background="#fefefe"
+                              BorderBrush="#16161D">
+                    Medium</ComboBoxItem>
+                <ComboBoxItem FontSize="14"
+                              Background="#fefefe"
+                              BorderBrush="#16161D">
+                    High</ComboBoxItem>
+                <ComboBoxItem FontSize="14"
+                              Background="#fefefe"
+                              BorderBrush="#16161D">
+                    Critical</ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Content="Assigned to:"/>
+            <TextBox Grid.Row="4"
+                     Grid.Column="1"
+                      x:Name="txtAssignedUser"
+                     Margin="10"
+                     FontSize="14"
+                     VerticalContentAlignment="Center"
+                     TextWrapping="Wrap"/>
+            <Label Grid.Row="1"
+                   Grid.Column="2"
+                   Grid.ColumnSpan="3"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Content="Description:"/>
+            <TextBox Grid.Row="2"
+                     Grid.Column="2"
+                     Grid.ColumnSpan="3"
+                     Grid.RowSpan="3"
+                     x:Name="txtDescription"
+                     Margin="10"
+                     FontSize="14"
+                     TextWrapping="Wrap"/>
+            <Button Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Width="100"
+                    Height="50"
+                    VerticalContentAlignment="Center"
+                    Content="Add" 
+                    FontSize="18"
+                    Click="AddTicket"/>
+        </Grid>
+    </Border>
 </Window>

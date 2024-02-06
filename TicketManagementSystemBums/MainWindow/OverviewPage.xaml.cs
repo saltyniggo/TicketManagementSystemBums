@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TicketManagementSystemBums.LoginWindow;
 using TicketManagementSystemBums.MainWindow.Forms;
 using TicketManagementSystemBums.MainWindow.Forms.DetailWindow;
 using static TicketManagementSystemBums.Ticket;
@@ -24,13 +25,71 @@ namespace TicketManagementSystemBums.MainWindow
     public partial class OverviewPage : Page
     {
         private DetailWindow currentDetailWindow;
+        private static ListBox unassigned;
+        private static ListBox assigned;
+        private static ListBox completed;
+        private string userName = "Nico Schulz";
 
+        public static List<Ticket> Tickets = new List<Ticket>();
+
+        public static ListBox Unassigned
+        {
+            get
+            {
+                return unassigned;
+            }
+            set
+            {
+                unassigned = value;
+            }
+        }
+        public static ListBox Assigned
+        { 
+            get
+            {
+                return assigned;
+            }
+            set
+            {
+                assigned = value;
+            }
+        }
+        public static ListBox Completed
+        {
+            get
+            {
+                return completed;
+            }
+            set
+            {
+                completed = value;
+            }
+        }
+        public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
 
         public OverviewPage()
         {
             InitializeComponent();
+            sidebarTitle.Text = $"Welcome {UserName}";
+            Unassigned = listUnassigned;
+            Assigned = listAssigned; 
+            Completed = listCompleted; 
             FillLists();
+            RefreshLists();
+            EditTicketPage.TicketUpdated += RefreshLists;
+            AddTicketWindow.TicketAdded += RefreshLists;
         }
+
 
         private void OpenAddTicketForm(object sender, RoutedEventArgs e)
         {
@@ -46,17 +105,27 @@ namespace TicketManagementSystemBums.MainWindow
                 string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
 
-                Ticket ticket = new Ticket
+                Ticket ticket = new Ticket()
                 {
-                    TicketName = randomString,
+                    TicketName = "test" + randomString,
                     TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
                     Priority = (TicketPriority)random.Next(0, 4),
                     TicketAssignedUser = "User" + random.Next(1, 5),
                     TicketDescription = "Description" + random.Next(1, 100),
                     Status = (TicketStatus)random.Next(0, 3)
                 };
+                Tickets.Add(ticket);
+            }
+        }
 
+        public void RefreshLists()
+        {
+            listUnassigned.Items.Clear();
+            listAssigned.Items.Clear();
+            listCompleted.Items.Clear();
 
+            foreach (var ticket in Tickets)
+            {
                 switch (ticket.Status)
                 {
                     case TicketStatus.Unassigned:
@@ -71,17 +140,29 @@ namespace TicketManagementSystemBums.MainWindow
                 }
             }
         }
+
         private void Ticket_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Ticket item = (sender as FrameworkElement).DataContext as Ticket;
-            if (currentDetailWindow != null)
-            {
-                currentDetailWindow.Close();
-            }
-            currentDetailWindow = new DetailWindow(item);
-            currentDetailWindow.Show();
+            Ticket? item = ((FrameworkElement)sender).DataContext as Ticket;
+            this.currentDetailWindow?.Close();
+            this.currentDetailWindow = new DetailWindow(item);
+            this.currentDetailWindow.Show();
         }
 
+        private void openAccount(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void openSettings(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void logout(object sender, RoutedEventArgs e)
+        {
+            new StartWindow().Show();
+            Window.GetWindow(this).Close();
+        }
     }
 }

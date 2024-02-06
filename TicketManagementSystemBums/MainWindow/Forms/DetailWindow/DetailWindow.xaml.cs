@@ -22,7 +22,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         public DetailWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new EditTicketPage());
+            MainFrame.Navigate(new DetailTicketPage());
         }
         public DetailWindow(Ticket ticket)
         {
