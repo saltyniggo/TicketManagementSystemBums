@@ -104,15 +104,21 @@ namespace TicketManagementSystemBums.MainWindow
             {
                 string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
                     .Select(s => s[random.Next(s.Length)]).ToArray());
+                string assigenedUser = "";
+                TicketStatus status = (TicketStatus)random.Next(0, 3);
+                if (status != TicketStatus.Unassigned)
+                {
+                    assigenedUser += "User" + random.Next(1, 5);
+                }
 
                 Ticket ticket = new Ticket()
                 {
                     TicketName = "test" + randomString,
                     TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
                     Priority = (TicketPriority)random.Next(0, 4),
-                    TicketAssignedUser = "User" + random.Next(1, 5),
+                    TicketAssignedUser = assigenedUser,
                     TicketDescription = "Description" + random.Next(1, 100),
-                    Status = (TicketStatus)random.Next(0, 3)
+                    Status = status
                 };
                 Tickets.Add(ticket);
             }
