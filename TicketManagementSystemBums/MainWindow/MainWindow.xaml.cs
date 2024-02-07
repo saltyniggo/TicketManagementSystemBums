@@ -19,7 +19,8 @@ namespace TicketManagementSystemBums.MainWindow
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static string userName = "Nico Schulz";
+        private static string userName;
+        private static int userId;
 
         public static string UserName
         {
@@ -32,16 +33,24 @@ namespace TicketManagementSystemBums.MainWindow
                 userName = value;
             }
         }
-
-        public MainWindow()
+        public static int UserId
         {
-            InitializeComponent();
-            MainFrame.Navigate(new OverviewPage());
+            get
+            {
+                return userId;
+            }
+            set
+            {
+                userId = value;
+            }
         }
-        public MainWindow(string test)
+
+        public MainWindow(string userName, int userId)
         {
             InitializeComponent();
-            MainFrame.Navigate(new OverviewPage(test));
+            UserName = userName;
+            UserId = userId;
+            MainFrame.Navigate(new OverviewPage());
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

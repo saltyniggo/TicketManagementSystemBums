@@ -21,7 +21,15 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
     /// </summary>
     public partial class DetailTicketPage : Page
     {
+        public static event Action TicketCompleted;
+        
         private Ticket ticket;
+
+        public Ticket Ticket
+        {
+            get { return ticket; }
+            set { ticket = value; }
+        }
 
         public DetailTicketPage()
         {
@@ -51,6 +59,14 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
+            Window.GetWindow(this).Close();
+        }
+
+        private void CompleteTicket(object sender, RoutedEventArgs e)
+        {
+            this.Ticket.Status = Ticket.TicketStatus.Completed;
+            TicketCompleted?.Invoke();
+            MessageBox.Show("Ticket has been completed");
             Window.GetWindow(this).Close();
         }
     }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,19 +77,7 @@ namespace TicketManagementSystemBums.MainWindow
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
             AddTicketWindow.TicketAdded += RefreshLists;
-        }
-
-        public OverviewPage(string test)
-        {
-            InitializeComponent();
-            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
-            Unassigned = listUnassigned;
-            Assigned = listAssigned;
-            Completed = listCompleted;
-            FillLists();
-            RefreshLists();
-            EditTicketPage.TicketUpdated += RefreshLists;
-            AddTicketWindow.TicketAdded += RefreshLists;
+            DetailTicketPage.TicketCompleted += RefreshLists;
         }
 
 
@@ -96,33 +86,33 @@ namespace TicketManagementSystemBums.MainWindow
             new AddTicketWindow().Show();
         }
 
-        public void FillLists()
-        {
-            Random random = new Random();
+        //public void FillLists()
+        //{
+        //    Random random = new Random();
 
-            for (int i = 0; i < 14; i++)
-            {
-                string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
-                    .Select(s => s[random.Next(s.Length)]).ToArray());
-                string assigenedUser = "";
-                TicketStatus status = (TicketStatus)random.Next(0, 3);
-                if (status != TicketStatus.Unassigned)
-                {
-                    assigenedUser += "User" + random.Next(1, 5);
-                }
+        //    for (int i = 0; i < 14; i++)
+        //    {
+        //        string randomString = new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 12)
+        //            .Select(s => s[random.Next(s.Length)]).ToArray());
+        //        string assigenedUser = "";
+        //        TicketStatus status = (TicketStatus)random.Next(0, 3);
+        //        if (status != TicketStatus.Unassigned)
+        //        {
+        //            assigenedUser += "User" + random.Next(1, 5);
+        //        }
 
-                Ticket ticket = new Ticket()
-                {
-                    TicketName = "test" + randomString,
-                    TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
-                    Priority = (TicketPriority)random.Next(0, 4),
-                    TicketAssignedUser = assigenedUser,
-                    TicketDescription = "Description" + random.Next(1, 100),
-                    Status = status
-                };
-                Tickets.Add(ticket);
-            }
-        }
+        //        Ticket ticket = new Ticket()
+        //        {
+        //            TicketName = "test" + randomString,
+        //            TicketDate = DateTime.Today.AddDays(random.Next(-10, 10)).Date,
+        //            Priority = (TicketPriority)random.Next(0, 4),
+        //            TicketAssignedUser = assigenedUser,
+        //            TicketDescription = "Description" + random.Next(1, 100),
+        //            Status = status
+        //        };
+        //        Tickets.Add(ticket);
+        //    }
+        //}
 
         public void RefreshLists()
         {
@@ -146,7 +136,42 @@ namespace TicketManagementSystemBums.MainWindow
                 }
             }
         }
-
+        private void LoadTickets(int userId)
+        {
+            string connString = Database.CreateConnString();
+            try
+            {
+                using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM tickets WHERE ticket_assigneduser = @userId", conn))
+                    {
+                        query.Parameters.AddWithValue("userId", userId);
+                        using (var reader = query.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Ticket ticket = new Ticket()
+                                {
+                                    TicketID = reader.GetInt32(reader.GetOrdinal("ticket_id")),
+                                    TicketName = reader.GetString(reader.GetOrdinal("ticket_name")),
+                                    TicketDescription = reader.GetString(reader.GetOrdinal("ticket_description")),
+                                    Priority = (TicketPriority)reader.GetInt32(reader.GetOrdinal("ticket_priority")),
+                                    Status = (TicketStatus)reader.GetInt32(reader.GetOrdinal("ticket_status")),
+                                    TicketAssignedUser = reader.GetInt32(reader.GetOrdinal("ticket_assigned_user")),
+                                    TicketDate = reader.GetDateTime(reader.GetOrdinal("ticket_date"))
+                                };
+                                Tickets.Add(ticket);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Beep Boop, an error occurred: {ex.Message}");
+            }
+        }
         private void Ticket_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Ticket? item = ((FrameworkElement)sender).DataContext as Ticket;
@@ -164,6 +189,11 @@ namespace TicketManagementSystemBums.MainWindow
         {
             new StartWindow().Show();
             Window.GetWindow(this).Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshLists();
         }
     }
 }

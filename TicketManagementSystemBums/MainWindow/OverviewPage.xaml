@@ -15,7 +15,7 @@
     <DockPanel>
         <Grid DockPanel.Dock="Left"
               Background="#C2DAFF"
-              Width="135">
+              Width="134">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="30"/>
@@ -69,7 +69,11 @@
                     Margin="0,0,0,10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="12">
+                    FontSize="12"
+                    Foreground="#fefefe"
+                    Background="#00204F"
+                    BorderBrush="#FFAF0F"
+                    BorderThickness="2" Click="Button_Click">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="45"/>
@@ -84,6 +88,10 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="12"
+                    Foreground="#fefefe"
+                    Background="#00204F"
+                    BorderBrush="#FFAF0F"
+                    BorderThickness="2"
                     Click="OpenAddTicketForm">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -94,9 +102,9 @@
         </Grid>
         <Grid DockPanel.Dock="Right">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="220"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0"
                   Background="#FFAF0F">
@@ -118,19 +126,32 @@
                          Foreground="#16161D">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TicketName}" 
-                                       MouseDown="Ticket_MouseDown">
-                                <Popup Name="DetailsPopup" 
-                                       Placement="Right" 
-                                       IsOpen="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding TicketDate}"/>
-                                        <TextBlock Text="{Binding Priority}"/>
-                                        <TextBlock Text="{Binding TicketAssignedUser}"/>
-                                        <TextBlock Text="{Binding TicketDescription}"/>
-                                    </StackPanel>
-                                </Popup>
-                            </TextBlock>
+                            <Grid MouseDown="Ticket_MouseDown"
+                                   Width="188">          
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding TicketName}"      
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"
+                                           Padding="5"/>
+                                <Label Content="{Binding TicketDate}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Left"
+                                       Foreground="#91A4BF"/>
+                                <Label Content="{Binding TicketAssignedUser}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Foreground="#91A4BF"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -155,19 +176,34 @@
                          Foreground="#16161D">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TicketName}" 
-                                       MouseDown="Ticket_MouseDown">
-                                <Popup Name="DetailsPopup" 
-                                       Placement="Right" 
-                                       IsOpen="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding TicketDate}"/>
-                                        <TextBlock Text="{Binding Priority}"/>
-                                        <TextBlock Text="{Binding TicketAssignedUser}"/>
-                                        <TextBlock Text="{Binding TicketDescription}"/>
-                                    </StackPanel>
-                                </Popup>
-                            </TextBlock>
+                            <Grid MouseDown="Ticket_MouseDown"
+                                  Width="188">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition  Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding TicketName}"      
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"
+                                           TextWrapping="Wrap"
+                                           Padding="5"/>
+                                <Label Content="{Binding TicketDate}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       
+                                       HorizontalAlignment="Left"
+                                       Foreground="#91A4BF"/>
+                                <Label Content="{Binding TicketAssignedUser}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Foreground="#91A4BF"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -192,19 +228,32 @@
                          Foreground="#16161D">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding TicketName}" 
-                                       MouseDown="Ticket_MouseDown">
-                                <Popup Name="DetailsPopup" 
-                                       Placement="Right" 
-                                       IsOpen="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding TicketDate}"/>
-                                        <TextBlock Text="{Binding Priority}"/>
-                                        <TextBlock Text="{Binding TicketAssignedUser}"/>
-                                        <TextBlock Text="{Binding TicketDescription}"/>
-                                    </StackPanel>
-                                </Popup>
-                            </TextBlock>
+                            <Grid MouseDown="Ticket_MouseDown"
+                                  Width="188">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition  Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding TicketName}"      
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"
+                                           Padding="5"/>
+                                <Label Content="{Binding TicketDate}"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Left"
+                                       Foreground="#91A4BF"/>
+                                <Label Content="{Binding TicketAssignedUser}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Foreground="#91A4BF"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

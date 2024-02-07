@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicketManagementSystemBums.MainWindow;
+using Npgsql;
 
 namespace TicketManagementSystemBums.LoginWindow
 {
@@ -48,14 +49,48 @@ namespace TicketManagementSystemBums.LoginWindow
 
         private void ClickedLogin(object sender, RoutedEventArgs e)
         {
-            if (txtBoxEmail.Text == "test")
+            string email = txtBoxEmail.Text;
+            string password = pswBoxPassword.Password;
+
+            string connString = Database.CreateConnString();
+
+            try
             {
-                new MainWindow.MainWindow("test").Show();
-            } else
-            {
-                new MainWindow.MainWindow().Show();
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email AND user_password = @password", conn))
+                    {
+                        query.Parameters.AddWithValue("email", email);
+                        query.Parameters.AddWithValue("password", password);
+                        using (var reader = query.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                int userId = 0;
+                                string userName = string.Empty;
+
+                                while (reader.Read())
+                                {
+                                    userId = reader.GetInt32(reader.GetOrdinal("user_id"));
+                                    userName = reader.GetString(reader.GetOrdinal("user_name"));
+                                }
+                                MessageBox.Show($"Welcome {userName} {userId}!");
+                                new MainWindow.MainWindow(userName: userName, userId: userId).Show();
+                                Window.GetWindow(this).Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid email or password.");
+                            }
+                        }
+                    }
+                }
             }
-            Window.GetWindow(this).Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Beep Boop, an error occurred: {ex.Message}");
+            }
         }
     }
 }

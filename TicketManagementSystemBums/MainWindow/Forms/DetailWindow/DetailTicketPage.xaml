@@ -116,15 +116,28 @@
                  FontSize="14"
                  TextWrapping="Wrap"/>
         <Button Grid.Row="5"
-                Grid.Column="0"
-                Grid.ColumnSpan="5"
+                Grid.Column="1"
                 Width="100"
                 Height="50"
+                Margin="0,0,10,0"
                 VerticalContentAlignment="Center"
+                HorizontalAlignment="Right"
                 Content="Edit" 
                 FontSize="18"
                 Background="#C2DAFF"
                 BorderBrush="#16161D"
                 Click="EditTicket"/>
+        <Button Grid.Row="5"
+                Grid.Column="2"
+                Width="100"
+                Height="50"
+                Margin="10,0,0,0"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Left"
+                Content="Complete" 
+                FontSize="18"
+                Background="#C2DAFF"
+                BorderBrush="#16161D"
+                Click="CompleteTicket"/>
     </Grid>
 </Page>
