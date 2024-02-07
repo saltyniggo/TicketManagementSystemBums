@@ -36,13 +36,13 @@ namespace TicketManagementSystemBums.LoginWindow
             string connString = Database.CreateConnString();
             try
             {
-                using (var conn = new NpgsqlConnection(connString))
+                using (NpgsqlConnection conn = new NpgsqlConnection(connString))
                 {
                     conn.Open();
-                    using (var cmd = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email", conn))
+                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email", conn))
                     {
-                        cmd.Parameters.AddWithValue("email", email);
-                        using (var reader = cmd.ExecuteReader())
+                        query.Parameters.AddWithValue("email", email);
+                        using (var reader = query.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {

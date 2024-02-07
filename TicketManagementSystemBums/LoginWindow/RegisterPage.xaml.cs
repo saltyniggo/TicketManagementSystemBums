@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -56,13 +57,13 @@ namespace TicketManagementSystemBums.LoginWindow
                         if (ValidateName(name) && ValidateEmail(email) && ValidatePasswordLength(password) && ValidatePasswordMatch(password, passwordRepeat))
                         {
                             int user_id = await Database.CountRowsAsync("users", connString) + 1;
-                            using (var cmd2 = new NpgsqlCommand("INSERT INTO users (user_id, user_name, user_email, user_password) VALUES (@user_id, @name, @email, @password)", conn))
+                            using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO users (user_id, user_name, user_email, user_password) VALUES (@user_id, @name, @email, @password)", conn))
                             {
-                                cmd2.Parameters.AddWithValue("user_id", user_id);
-                                cmd2.Parameters.AddWithValue("name", name);
-                                cmd2.Parameters.AddWithValue("email", email);
-                                cmd2.Parameters.AddWithValue("password", password);
-                                await cmd2.ExecuteNonQueryAsync();
+                                query.Parameters.AddWithValue("user_id", user_id);
+                                query.Parameters.AddWithValue("name", name);
+                                query.Parameters.AddWithValue("email", email);
+                                query.Parameters.AddWithValue("password", password);
+                                await query.ExecuteNonQueryAsync();
                                 MessageBox.Show("Account created successfully!");
                                 this.NavigationService.Navigate(new LoginPage());
                             }
@@ -86,10 +87,10 @@ namespace TicketManagementSystemBums.LoginWindow
 
         private async Task<bool> CheckIfEmailExistsAsync(string email, NpgsqlConnection conn)
         {
-            using (var cmd = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email", conn))
+            using (var query = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email", conn))
             {
-                cmd.Parameters.AddWithValue("email", email);
-                using (var reader = await cmd.ExecuteReaderAsync())
+                query.Parameters.AddWithValue("email", email);
+                using (var reader = await query.ExecuteReaderAsync())
                 {
                     return reader.HasRows;
                 }

@@ -59,15 +59,24 @@ namespace TicketManagementSystemBums.LoginWindow
                 using (var conn = new NpgsqlConnection(connString))
                 {
                     conn.Open();
-                    using (var cmd = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email AND user_password = @password", conn))
+                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email AND user_password = @password", conn))
                     {
-                        cmd.Parameters.AddWithValue("email", email);
-                        cmd.Parameters.AddWithValue("password", password);
-                        using (var reader = cmd.ExecuteReader())
+                        query.Parameters.AddWithValue("email", email);
+                        query.Parameters.AddWithValue("password", password);
+                        using (var reader = query.ExecuteReader())
                         {
                             if (reader.HasRows)
                             {
-                                new MainWindow.MainWindow().Show();
+                                int userId = 0;
+                                string userName = string.Empty;
+
+                                while (reader.Read())
+                                {
+                                    userId = reader.GetInt32(reader.GetOrdinal("user_id"));
+                                    userName = reader.GetString(reader.GetOrdinal("user_name"));
+                                }
+                                MessageBox.Show($"Welcome {userName} {userId}!");
+                                new MainWindow.MainWindow(userName: userName, userId: userId).Show();
                                 Window.GetWindow(this).Close();
                             }
                             else
@@ -80,7 +89,7 @@ namespace TicketManagementSystemBums.LoginWindow
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                MessageBox.Show($"Beep Boop, an error occurred: {ex.Message}");
             }
         }
     }
