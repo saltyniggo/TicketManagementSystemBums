@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,12 +27,39 @@ namespace TicketManagementSystemBums.LoginWindow
         }
         private void BackToLogin(object sender, RoutedEventArgs e)
         {
-                this.NavigationService.Navigate(new LoginPage());
+            this.NavigationService.Navigate(new LoginPage());
         }
 
         private void ClickedReset(object sender, RoutedEventArgs e)
         {
-
+            string email = txtBoxEmail.Text;
+            string connString = Database.CreateConnString();
+            try
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email", conn))
+                    {
+                        cmd.Parameters.AddWithValue("email", email);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                MessageBox.Show("There exists an account with the entered mail, but I did not feel like implementing this function so yeaa..");
+                            }
+                            else
+                            {
+                                MessageBox.Show("There exists no account with the entered email. Please try again!.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
     }
 }
