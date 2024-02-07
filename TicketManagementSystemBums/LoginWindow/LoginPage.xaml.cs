@@ -47,31 +47,12 @@ namespace TicketManagementSystemBums.LoginWindow
             this.NavigationService.Navigate(new ForgotPasswordPage());
         }
 
-        //private void ClickedLogin(object sender, RoutedEventArgs e)
-        //{
-        //    if (txtBoxEmail.Text == "test")
-        //    {
-        //        new MainWindow.MainWindow("test").Show();
-        //    } else
-        //    {
-        //        new MainWindow.MainWindow().Show();
-        //    }
-        //    Window.GetWindow(this).Close();
-        //}
         private void ClickedLogin(object sender, RoutedEventArgs e)
         {
             string email = txtBoxEmail.Text;
             string password = pswBoxPassword.Password;
 
-            var connStringBuilder = new NpgsqlConnectionStringBuilder
-            {
-                Host = "localhost:5433",
-                Username = "postgres",
-                Password = "password123",
-                Database = "postgres"
-            };
-
-            string connString = connStringBuilder.ConnectionString;
+            string connString = Database.CreateConnString();
 
             try
             {

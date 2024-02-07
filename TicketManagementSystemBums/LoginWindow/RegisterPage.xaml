@@ -137,6 +137,7 @@
                 Foreground="#16161D"
                 Width="100"
                 Height="50"
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center"
+                Click="ClickedRegister"/>
     </Grid>
 </Page>
