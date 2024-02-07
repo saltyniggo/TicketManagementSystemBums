@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicketManagementSystemBums.MainWindow;
+using Npgsql;
 
 namespace TicketManagementSystemBums.LoginWindow
 {
@@ -46,16 +47,60 @@ namespace TicketManagementSystemBums.LoginWindow
             this.NavigationService.Navigate(new ForgotPasswordPage());
         }
 
+        //private void ClickedLogin(object sender, RoutedEventArgs e)
+        //{
+        //    if (txtBoxEmail.Text == "test")
+        //    {
+        //        new MainWindow.MainWindow("test").Show();
+        //    } else
+        //    {
+        //        new MainWindow.MainWindow().Show();
+        //    }
+        //    Window.GetWindow(this).Close();
+        //}
         private void ClickedLogin(object sender, RoutedEventArgs e)
         {
-            if (txtBoxEmail.Text == "test")
+            string email = txtBoxEmail.Text;
+            string password = pswBoxPassword.Password;
+
+            var connStringBuilder = new NpgsqlConnectionStringBuilder
             {
-                new MainWindow.MainWindow("test").Show();
-            } else
+                Host = "localhost:5433",
+                Username = "postgres",
+                Password = "password123",
+                Database = "postgres"
+            };
+
+            string connString = connStringBuilder.ConnectionString;
+
+            try
             {
-                new MainWindow.MainWindow().Show();
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand("SELECT * FROM users WHERE user_email = @email AND user_password = @password", conn))
+                    {
+                        cmd.Parameters.AddWithValue("email", email);
+                        cmd.Parameters.AddWithValue("password", password);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                new MainWindow.MainWindow().Show();
+                                Window.GetWindow(this).Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid email or password.");
+                            }
+                        }
+                    }
+                }
             }
-            Window.GetWindow(this).Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}");
+            }
         }
     }
 }

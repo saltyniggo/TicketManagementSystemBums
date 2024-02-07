@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,19 +76,7 @@ namespace TicketManagementSystemBums.MainWindow
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
             AddTicketWindow.TicketAdded += RefreshLists;
-        }
-
-        public OverviewPage(string test)
-        {
-            InitializeComponent();
-            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
-            Unassigned = listUnassigned;
-            Assigned = listAssigned;
-            Completed = listCompleted;
-            FillLists();
-            RefreshLists();
-            EditTicketPage.TicketUpdated += RefreshLists;
-            AddTicketWindow.TicketAdded += RefreshLists;
+            DetailTicketPage.TicketCompleted += RefreshLists;
         }
 
 
@@ -168,10 +157,7 @@ namespace TicketManagementSystemBums.MainWindow
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < 1234; i++)
-            {
-                FillLists();
-            }
+            FillLists();
             RefreshLists();
         }
     }

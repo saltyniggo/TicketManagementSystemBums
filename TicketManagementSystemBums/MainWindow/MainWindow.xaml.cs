@@ -38,11 +38,6 @@ namespace TicketManagementSystemBums.MainWindow
             InitializeComponent();
             MainFrame.Navigate(new OverviewPage());
         }
-        public MainWindow(string test)
-        {
-            InitializeComponent();
-            MainFrame.Navigate(new OverviewPage(test));
-        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
