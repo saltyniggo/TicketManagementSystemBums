@@ -52,7 +52,7 @@ namespace TicketManagementSystemBums.LoginWindow
             string email = txtBoxEmail.Text;
             string password = pswBoxPassword.Password;
 
-            string connString = Database.CreateConnString();
+            string connString = Database.CreateConnString().Result;
 
             try
             {
@@ -75,7 +75,6 @@ namespace TicketManagementSystemBums.LoginWindow
                                     userId = reader.GetInt32(reader.GetOrdinal("user_id"));
                                     userName = reader.GetString(reader.GetOrdinal("user_name"));
                                 }
-                                MessageBox.Show($"Welcome {userName} {userId}!");
                                 new MainWindow.MainWindow(userName: userName, userId: userId).Show();
                                 Window.GetWindow(this).Close();
                             }

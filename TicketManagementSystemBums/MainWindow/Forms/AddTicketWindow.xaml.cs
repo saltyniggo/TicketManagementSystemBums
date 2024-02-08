@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static TicketManagementSystemBums.Ticket;
 using TicketManagementSystemBums.MainWindow;
+using Npgsql;
 
 namespace TicketManagementSystemBums.MainWindow.Forms
 {
@@ -37,25 +38,40 @@ namespace TicketManagementSystemBums.MainWindow.Forms
             }
         }
 
+        
         private void AddTicket(object sender, RoutedEventArgs e)
         {
-            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
+            if (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
             {
                 MessageBox.Show("Please fill in all fields");
                 return;
             }
-            Ticket ticket = new Ticket
+            string connString = Database.CreateConnString().Result;
+            int ticketID = Database.CountRowsAsync("tickets", connString).Result + 1;
+            try
             {
-                TicketName = txtName.Text,
-                TicketDate = DateTime.Parse(txtDate.Text),
-                Priority = (TicketPriority)Enum.Parse(typeof(TicketPriority), txtPriority.Text),
-                TicketAssignedUser = txtAssignedUser.Text,
-                TicketDescription = txtDescription.Text,
-                Status = txtAssignedUser.Text == "" ? TicketStatus.Unassigned : TicketStatus.Assigned
-            };
-            OverviewPage.Tickets.Add(ticket);
-            TicketAdded?.Invoke();
-            Window.GetWindow(this).Close();
+                using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO tickets (ticket_id, ticket_name, ticket_date, ticket_priority, " +
+                        "ticket_description, ticket_status) VALUES (@id, @name, @date, @priority, @description, @status)", conn))
+                    {
+                        query.Parameters.AddWithValue("id", ticketID);
+                        query.Parameters.AddWithValue("name", txtName.Text);
+                        query.Parameters.AddWithValue("date", DateTime.Parse(txtDate.Text));
+                        query.Parameters.AddWithValue("priority", (int)Enum.Parse(typeof(TicketPriority), txtPriority.Text));
+                        query.Parameters.AddWithValue("description", txtDescription.Text);
+                        query.Parameters.AddWithValue("status", (int)TicketStatus.Unassigned);
+                        query.ExecuteNonQuery();
+                    }
+                }
+                TicketAdded?.Invoke();
+                Window.GetWindow(this).Close();
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void MinimizeWindow(object sender, RoutedEventArgs e)

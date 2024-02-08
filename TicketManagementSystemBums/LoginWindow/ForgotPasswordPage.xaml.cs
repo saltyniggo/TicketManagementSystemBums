@@ -33,7 +33,7 @@ namespace TicketManagementSystemBums.LoginWindow
         private void ClickedReset(object sender, RoutedEventArgs e)
         {
             string email = txtBoxEmail.Text;
-            string connString = Database.CreateConnString();
+            string connString = Database.CreateConnString().Result;
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connString))

@@ -9,7 +9,7 @@ namespace TicketManagementSystemBums
         private string ticketDescription;
         private TicketPriority priority;
         private TicketStatus status;
-        private string ticketAssignedUser;
+        private int ticketAssignedUser;
         private DateTime ticketDate;
 
 
@@ -83,7 +83,7 @@ namespace TicketManagementSystemBums
                 status = value;
             }
         }
-        public string TicketAssignedUser
+        public int TicketAssignedUser
         {
             get
             {
@@ -111,12 +111,12 @@ namespace TicketManagementSystemBums
             TicketName = "undefined";
             TicketDate = DateTime.Now;
             Priority = TicketPriority.Low;
-            TicketAssignedUser = "undefined";
+            TicketAssignedUser = 0;
             TicketDescription = "undefined";
             Status = TicketStatus.Unassigned;
         }
 
-        public Ticket(int id, string name, DateTime date, TicketPriority priority, string assignedUser, string description, TicketStatus status)
+        public Ticket(int id, string name, DateTime date, TicketPriority priority, int assignedUser, string description, TicketStatus status)
         {
             TicketID = id;
             TicketName = name;

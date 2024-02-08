@@ -42,7 +42,7 @@ namespace TicketManagementSystemBums.LoginWindow
             string password = pswBoxPassword.Password;
             string passwordRepeat = pswBoxPasswordRepeat.Password;
 
-            string connString = Database.CreateConnString();
+            string connString = Database.CreateConnString().Result;
 
             try
             {
