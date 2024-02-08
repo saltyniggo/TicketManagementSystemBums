@@ -48,7 +48,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtDate.Text = ticket.TicketDate.ToString("dd/MM/yyyy");
             txtName.Text = ticket.TicketName;
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.TicketAssignedUser;
+            txtAssignedUser.Text = ticket.TicketAssignedUser.ToString();
             txtDescription.Text = ticket.TicketDescription;
         }
 

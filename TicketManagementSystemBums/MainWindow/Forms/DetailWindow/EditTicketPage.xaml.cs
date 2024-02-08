@@ -39,7 +39,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtName.Text = ticket.TicketName;
             txtDate.Text = ticket.TicketDate.ToString();
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.TicketAssignedUser;
+            txtAssignedUser.Text = ticket.TicketAssignedUser.ToString();
             txtDescription.Text = ticket.TicketDescription;
         }
 
@@ -53,7 +53,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             Ticket.TicketName = txtName.Text;
             Ticket.TicketDate = txtDate.SelectedDate.Value;
             Ticket.Priority = (TicketPriority)txtPriority.SelectedIndex;
-            Ticket.TicketAssignedUser = txtAssignedUser.Text;
+            Ticket.TicketAssignedUser = Convert.ToInt32(txtAssignedUser.Text);
             Ticket.TicketDescription = txtDescription.Text;
 
             if (Ticket.Status != TicketStatus.Completed)

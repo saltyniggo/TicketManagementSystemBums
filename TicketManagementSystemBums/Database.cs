@@ -37,10 +37,10 @@ namespace TicketManagementSystemBums
         }
 
 
-        public static string CreateConnString()
+        public static async Task<string> CreateConnString()
         {
             NpgsqlConnectionStringBuilder connStringBuilder = new NpgsqlConnectionStringBuilder
-            { 
+            {
                 Host = Host,
                 Username = Username,
                 Password = Password,
