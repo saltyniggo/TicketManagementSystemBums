@@ -76,6 +76,7 @@ namespace TicketManagementSystemBums.MainWindow
             Assigned = listAssigned; 
             Completed = listCompleted; 
             RefreshLists();
+            RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
             AddTicketWindow.TicketAdded += RefreshLists;
             DetailTicketPage.TicketCompleted += RefreshLists;
