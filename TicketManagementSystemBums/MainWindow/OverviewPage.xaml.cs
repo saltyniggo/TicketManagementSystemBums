@@ -70,6 +70,7 @@ namespace TicketManagementSystemBums.MainWindow
         public OverviewPage()
         {
             InitializeComponent();
+            Tickets.Clear();
             sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
