@@ -75,7 +75,6 @@ namespace TicketManagementSystemBums.MainWindow
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
             Completed = listCompleted; 
-            LoadTickets(MainWindow.UserId);
             RefreshLists();
             EditTicketPage.TicketUpdated += RefreshLists;
             AddTicketWindow.TicketAdded += RefreshLists;
@@ -90,6 +89,8 @@ namespace TicketManagementSystemBums.MainWindow
 
         public void RefreshLists()
         {
+            Tickets.Clear();
+            LoadTickets(MainWindow.UserId);
             listUnassigned.Items.Clear();
             listAssigned.Items.Clear();
             listCompleted.Items.Clear();
