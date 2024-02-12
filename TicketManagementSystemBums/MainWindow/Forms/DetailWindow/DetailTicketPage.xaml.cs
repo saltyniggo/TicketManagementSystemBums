@@ -33,12 +33,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 
         public DetailTicketPage()
         {
-            InitializeComponent();
-            txtName.Text = "DATA_MISSING";
-            txtDate.Text = "DATA_MISSING";
-            txtPriority.Text = "DATA_MISSING";
-            txtAssignedUser.Text = "DATA_MISSING";
-            txtDescription.Text = "DATA_MISSING";
+           InitializeComponent();
         }
 
         public DetailTicketPage(Ticket ticket)
@@ -48,7 +43,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtDate.Text = ticket.TicketDate.ToString("dd/MM/yyyy");
             txtName.Text = ticket.TicketName;
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.TicketAssignedUser.ToString();
+            txtAssignedUser.Text = ticket.TicketAssignedUser == 0 ? "" : OverviewPage.UserName;
             txtDescription.Text = ticket.TicketDescription;
         }
 

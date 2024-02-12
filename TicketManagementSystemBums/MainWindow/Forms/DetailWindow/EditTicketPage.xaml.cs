@@ -16,6 +16,7 @@ using TicketManagementSystemBums;
 using TicketManagementSystemBums.MainWindow;
 using static TicketManagementSystemBums.Ticket;
 using TicketManagementSystemBums.MainWindow.Forms;
+using Npgsql;
 
 namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 {
@@ -39,30 +40,58 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtName.Text = ticket.TicketName;
             txtDate.Text = ticket.TicketDate.ToString();
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.TicketAssignedUser.ToString();
+            chkbxAssign.IsChecked = ticket.TicketAssignedUser != 0 ? true : false;
             txtDescription.Text = ticket.TicketDescription;
         }
 
         private void SubmitTicket(object sender, RoutedEventArgs e)
         {
-            while (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
+            if (txtName.Text == "" || txtDate.Text == "" || txtPriority.Text == "")
             {
                 MessageBox.Show("Please fill in all fields");
                 return;
             }
-            Ticket.TicketName = txtName.Text;
-            Ticket.TicketDate = txtDate.SelectedDate.Value;
-            Ticket.Priority = (TicketPriority)txtPriority.SelectedIndex;
-            Ticket.TicketAssignedUser = Convert.ToInt32(txtAssignedUser.Text);
-            Ticket.TicketDescription = txtDescription.Text;
-
-            if (Ticket.Status != TicketStatus.Completed)
+            int ticketStatus;
+            if (this.Ticket.Status == TicketStatus.Completed)
             {
-                Ticket.Status = string.IsNullOrEmpty(txtAssignedUser.Text) ? TicketStatus.Unassigned : TicketStatus.Assigned;
+                ticketStatus = 2;
+            } else if (chkbxAssign.IsChecked == true)
+            {
+                ticketStatus = 1;
+            } else
+            {
+                ticketStatus = 0;
             }
-
-            TicketUpdated?.Invoke();
-            Window.GetWindow(this).Close();
+            int assignedUser = chkbxAssign.IsChecked == true ? OverviewPage.UserId : 0;
+            MessageBox.Show(assignedUser.ToString());
+            string connString = Database.CreateConnString().Result;
+            
+            try
+            {
+                using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (NpgsqlCommand query = new NpgsqlCommand("UPDATE tickets SET ticket_name = @name, ticket_date = @date, " +
+                        "ticket_priority = @priority, ticket_description = @description, ticket_assigneduser = @assigneduser, ticket_status = @status " +
+                        "WHERE ticket_id = @id", conn))
+                    {
+                        query.Parameters.AddWithValue("name", txtName.Text);
+                        query.Parameters.AddWithValue("date", DateTime.Parse(txtDate.Text));
+                        query.Parameters.AddWithValue("priority", (int)Enum.Parse(typeof(TicketPriority), txtPriority.Text));
+                        query.Parameters.AddWithValue("description", txtDescription.Text);
+                        query.Parameters.AddWithValue("assignedUser", assignedUser);
+                        query.Parameters.AddWithValue("status", ticketStatus);
+                        query.Parameters.AddWithValue("id", this.Ticket.TicketID);
+                        query.ExecuteNonQuery();
+                    }
+                }
+                TicketUpdated?.Invoke(); 
+                Window.GetWindow(this).Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

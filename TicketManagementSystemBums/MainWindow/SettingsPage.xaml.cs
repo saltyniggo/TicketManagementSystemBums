@@ -20,17 +20,46 @@ namespace TicketManagementSystemBums.MainWindow
     /// <summary>
     /// Interaction logic for SettingsPage.xaml
     /// </summary>
+    /// 
     public partial class SettingsPage : Page
     {
-        public SettingsPage()
+        private string userName;
+        private int userId;
+        public string UserName
         {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
+        public int UserId
+        {
+            get
+            {
+                return userId;
+            }
+            set
+            {
+                userId = value;
+            }
+        }
+
+
+        public SettingsPage(string userName, int userId)
+        {
+            this.userName = userName;
+            this.userId = userId;
             InitializeComponent();
-            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
+            sidebarTitle.Text = $"Welcome {UserName} {UserId}";
 
         }
         private void openOverview(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new OverviewPage());
+            this.NavigationService.Navigate(new OverviewPage(UserName, UserId));
         }
 
         private void logout(object sender, RoutedEventArgs e)

@@ -56,10 +56,8 @@ namespace TicketManagementSystemBums.LoginWindow
                     {
                         if (ValidateName(name) && ValidateEmail(email) && ValidatePasswordLength(password) && ValidatePasswordMatch(password, passwordRepeat))
                         {
-                            int user_id = await Database.CountRowsAsync("users", connString) + 1;
-                            using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO users (user_id, user_name, user_email, user_password) VALUES (@user_id, @name, @email, @password)", conn))
+                            using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO users (user_name, user_email, user_password) VALUES (@name, @email, @password)", conn))
                             {
-                                query.Parameters.AddWithValue("user_id", user_id);
                                 query.Parameters.AddWithValue("name", name);
                                 query.Parameters.AddWithValue("email", email);
                                 query.Parameters.AddWithValue("password", password);
