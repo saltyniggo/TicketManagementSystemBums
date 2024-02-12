@@ -60,9 +60,6 @@ namespace TicketManagementSystemBums
         
         public User()
         {
-            UserName = "undefined";
-            UserPassword = "undefined";
-            UserMail = "undefined";
         }
 
         public User(string name, string password, string mail)

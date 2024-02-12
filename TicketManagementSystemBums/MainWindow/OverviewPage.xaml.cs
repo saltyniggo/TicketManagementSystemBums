@@ -30,6 +30,8 @@ namespace TicketManagementSystemBums.MainWindow
         private static ListBox unassigned;
         private static ListBox assigned;
         private static ListBox completed;
+        private static string userName;
+        private static int userId;
 
         public static List<Ticket> Tickets = new List<Ticket>();
 
@@ -66,12 +68,36 @@ namespace TicketManagementSystemBums.MainWindow
                 completed = value;
             }
         }
-
-        public OverviewPage()
+        public static string UserName
         {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
+        public static int UserId
+        {
+            get
+            {
+                return userId;
+            }
+            set
+            {
+                userId = value;
+            }
+        }
+
+        public OverviewPage(string userName, int userId)
+        {
+            UserName = userName;
+            UserId = userId;
             InitializeComponent();
             Tickets.Clear();
-            sidebarTitle.Text = $"Welcome {MainWindow.UserName}";
+            sidebarTitle.Text = $"Welcome {UserName} {UserId}";
             Unassigned = listUnassigned;
             Assigned = listAssigned; 
             Completed = listCompleted; 
@@ -90,10 +116,10 @@ namespace TicketManagementSystemBums.MainWindow
         public void RefreshLists()
         {
             Tickets.Clear();
-            LoadTickets(MainWindow.UserId);
             listUnassigned.Items.Clear();
             listAssigned.Items.Clear();
             listCompleted.Items.Clear();
+            LoadTickets(MainWindow.UserId);
 
             foreach (var ticket in Tickets)
             {
@@ -119,11 +145,12 @@ namespace TicketManagementSystemBums.MainWindow
                 using (NpgsqlConnection conn = new NpgsqlConnection(connString))
                 {
                     conn.Open();
-                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM tickets WHERE ticket_assigneduser = @userId or ticket_assigneduser is null", conn))
+                    using (NpgsqlCommand query = new NpgsqlCommand("SELECT * FROM tickets WHERE ticket_assigneduser = @userId or ticket_assigneduser = 0", conn))
                     {
                         query.Parameters.AddWithValue("userId", userId);
                         using (var reader = query.ExecuteReader())
                         {
+                            
                             while (reader.Read())
                             {
                                 Ticket ticket = new Ticket()
@@ -133,7 +160,7 @@ namespace TicketManagementSystemBums.MainWindow
                                     TicketDescription = reader.GetString(2),
                                     Priority = (TicketPriority)reader.GetInt32(3),
                                     Status = (TicketStatus)reader.GetInt32(4),
-                                    TicketAssignedUser = reader.IsDBNull(5) ? Convert.ToInt32(null) : reader.GetInt32(4),
+                                    TicketAssignedUser = reader.GetInt32(5),
                                     TicketDate = reader.GetDateTime(6)
                                 };
                                 Tickets.Add(ticket);
@@ -157,7 +184,7 @@ namespace TicketManagementSystemBums.MainWindow
 
         private void openSettings(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new SettingsPage());
+            this.NavigationService.Navigate(new SettingsPage(userName, userId));
         }
 
         private void logout(object sender, RoutedEventArgs e)

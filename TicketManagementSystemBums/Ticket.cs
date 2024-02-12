@@ -108,12 +108,17 @@ namespace TicketManagementSystemBums
 
         public Ticket()
         {
-            TicketName = "undefined";
-            TicketDate = DateTime.Now;
-            Priority = TicketPriority.Low;
+        }
+
+        public Ticket(int id, string name, DateTime date, TicketPriority priority, string description, TicketStatus status)
+        {
+            TicketID = id;
+            TicketName = name;
+            TicketDate = date;
+            Priority = priority;
             TicketAssignedUser = 0;
-            TicketDescription = "undefined";
-            Status = TicketStatus.Unassigned;
+            TicketDescription = description;
+            Status = status;
         }
 
         public Ticket(int id, string name, DateTime date, TicketPriority priority, int assignedUser, string description, TicketStatus status)

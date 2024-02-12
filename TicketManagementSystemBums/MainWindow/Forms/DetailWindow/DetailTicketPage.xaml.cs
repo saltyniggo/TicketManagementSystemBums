@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TicketManagementSystemBums.LoginWindow;
+using static TicketManagementSystemBums.Ticket;
 
 namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 {
@@ -33,12 +35,7 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
 
         public DetailTicketPage()
         {
-            InitializeComponent();
-            txtName.Text = "DATA_MISSING";
-            txtDate.Text = "DATA_MISSING";
-            txtPriority.Text = "DATA_MISSING";
-            txtAssignedUser.Text = "DATA_MISSING";
-            txtDescription.Text = "DATA_MISSING";
+           InitializeComponent();
         }
 
         public DetailTicketPage(Ticket ticket)
@@ -48,8 +45,12 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
             txtDate.Text = ticket.TicketDate.ToString("dd/MM/yyyy");
             txtName.Text = ticket.TicketName;
             txtPriority.Text = ticket.Priority.ToString();
-            txtAssignedUser.Text = ticket.TicketAssignedUser.ToString();
+            txtAssignedUser.Text = ticket.TicketAssignedUser == 0 ? "" : OverviewPage.UserName;
             txtDescription.Text = ticket.TicketDescription;
+            if (ticket.Status == TicketStatus.Completed)
+            {
+                btnComplete.IsEnabled = false;
+            } 
         }
 
         private void EditTicket(object sender, RoutedEventArgs e)
@@ -65,6 +66,23 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
         private void CompleteTicket(object sender, RoutedEventArgs e)
         {
             this.Ticket.Status = Ticket.TicketStatus.Completed;
+            string connString = Database.CreateConnString().Result;
+            try
+            {
+                using (NpgsqlConnection conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    using (NpgsqlCommand query = new NpgsqlCommand("UPDATE tickets SET ticket_status = 2 WHERE ticket_id = @id", conn))
+                    {
+                        query.Parameters.AddWithValue("id", this.Ticket.TicketID);
+                        query.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             TicketCompleted?.Invoke();
             MessageBox.Show("Ticket has been completed");
             Window.GetWindow(this).Close();

@@ -72,8 +72,8 @@ namespace TicketManagementSystemBums.LoginWindow
 
                                 while (reader.Read())
                                 {
-                                    userId = reader.GetInt32(reader.GetOrdinal("user_id"));
-                                    userName = reader.GetString(reader.GetOrdinal("user_name"));
+                                    userId = reader.GetInt32(0);
+                                    userName = reader.GetString(2);
                                 }
                                 new MainWindow.MainWindow(userName: userName, userId: userId).Show();
                                 Window.GetWindow(this).Close();

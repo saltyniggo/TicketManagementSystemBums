@@ -47,16 +47,14 @@ namespace TicketManagementSystemBums.MainWindow.Forms
                 return;
             }
             string connString = Database.CreateConnString().Result;
-            int ticketID = Database.CountRowsAsync("tickets", connString).Result + 1;
             try
             {
                 using (NpgsqlConnection conn = new NpgsqlConnection(connString))
                 {
                     conn.Open();
-                    using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO tickets (ticket_id, ticket_name, ticket_date, ticket_priority, " +
-                        "ticket_description, ticket_status) VALUES (@id, @name, @date, @priority, @description, @status)", conn))
+                    using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO tickets (ticket_name, ticket_date, ticket_priority, " +
+                        "ticket_description, ticket_status) VALUES (@name, @date, @priority, @description, @status)", conn))
                     {
-                        query.Parameters.AddWithValue("id", ticketID);
                         query.Parameters.AddWithValue("name", txtName.Text);
                         query.Parameters.AddWithValue("date", DateTime.Parse(txtDate.Text));
                         query.Parameters.AddWithValue("priority", (int)Enum.Parse(typeof(TicketPriority), txtPriority.Text));

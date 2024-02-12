@@ -50,7 +50,7 @@ namespace TicketManagementSystemBums.MainWindow
             InitializeComponent();
             UserName = userName;
             UserId = userId;
-            MainFrame.Navigate(new OverviewPage());
+            MainFrame.Navigate(new OverviewPage(userName, userId));
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
