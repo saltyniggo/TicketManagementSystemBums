@@ -63,7 +63,6 @@ namespace TicketManagementSystemBums.MainWindow.Forms.DetailWindow
                 ticketStatus = 0;
             }
             int assignedUser = chkbxAssign.IsChecked == true ? OverviewPage.UserId : 0;
-            MessageBox.Show(assignedUser.ToString());
             string connString = Database.CreateConnString().Result;
             
             try

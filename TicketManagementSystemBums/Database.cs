@@ -50,22 +50,5 @@ namespace TicketManagementSystemBums
             string connString = connStringBuilder.ConnectionString;
             return connString;
         }
-
-        //public static async Task<int> CountRowsAsync(string tableName, string connString)
-        //{
-        //    int count = 0;
-
-        //    using (var conn = new NpgsqlConnection(connString))
-        //    {
-        //        await conn.OpenAsync();
-        //        using (var cmd = new NpgsqlCommand("SELECT COUNT(*) FROM " + tableName, conn))
-        //        {
-        //            count = Convert.ToInt32(await cmd.ExecuteScalarAsync());
-        //        }
-        //    }
-
-        //    return count;
-        //}
-
     }
 }
