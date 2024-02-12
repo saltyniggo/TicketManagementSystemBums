@@ -53,12 +53,13 @@ namespace TicketManagementSystemBums.MainWindow.Forms
                 {
                     conn.Open();
                     using (NpgsqlCommand query = new NpgsqlCommand("INSERT INTO tickets (ticket_name, ticket_date, ticket_priority, " +
-                        "ticket_description, ticket_status) VALUES (@name, @date, @priority, @description, @status)", conn))
+                        "ticket_description, ticket_assigneduser, ticket_status) VALUES (@name, @date, @priority, @description, @assigneduser, @status)", conn))
                     {
                         query.Parameters.AddWithValue("name", txtName.Text);
                         query.Parameters.AddWithValue("date", DateTime.Parse(txtDate.Text));
                         query.Parameters.AddWithValue("priority", (int)Enum.Parse(typeof(TicketPriority), txtPriority.Text));
                         query.Parameters.AddWithValue("description", txtDescription.Text);
+                        query.Parameters.AddWithValue("assigneduser", 0);
                         query.Parameters.AddWithValue("status", (int)TicketStatus.Unassigned);
                         query.ExecuteNonQuery();
                     }
